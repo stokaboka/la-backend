@@ -15,6 +15,9 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
-  await app.listen(3000, '0.0.0.0');
+  app.enableCors();
+  const port = process.env.SERVER_PORT || 3000;
+  const host = process.env.SERVER_HOST || '0.0.0.0';
+  await app.listen(port, host);
 }
 bootstrap();

@@ -6,89 +6,138 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Users')
 export class Users {
+
   @PrimaryGeneratedColumn()
-  public id: string;
+  public id: number;
+
+  @Column({
+    name: 'login',
+    type: 'varchar',
+    length: 255,
+    unique: true,
+  })
+  public login: string;
+
+  @Column({
+    name: 'password',
+    type: 'varchar',
+    length: 255,
+  })
+  public password: string;
+
+  @Column({
+    name: 'firstName',
+    type: 'varchar',
+    length: 255,
+  })
+  public firstName: string;
+
+  @Column({
+    name: 'secondName',
+    type: 'varchar',
+    default: '-',
+    length: 255,
+  })
+  public secondName: string;
+
+  @Column({
+    name: 'lastName',
+    type: 'varchar',
+    length: 255,
+  })
+  public lastName: string;
 
   @Column({
     name: 'email',
     type: 'varchar',
-    length: 100,
+    length: 255,
+    default: '',
   })
   public email: string;
 
   @Column({
-    name: 'nick',
+    name: 'phone',
     type: 'varchar',
-    length: 100,
-    unique: true,
+    length: 45,
+    default: '',
   })
-  public nick: string;
+  public phone: string;
 
   @Column({
-    name: 'pass',
+    name: 'regDate',
+    type: 'datetime',
+    default: null,
+    // default: new Date(),
+  })
+  public regDate: Date;
+
+  @Column({
+    name: 'lastDate',
+    type: 'datetime',
+    default: null,
+  })
+  public lastDate: Date;
+
+  @Column({
+    name: 'updDate',
+    type: 'datetime',
+    default: null,
+    // default: new Date(),
+  })
+  public updDate: Date;
+
+  @Column({
+    name: 'secretQuestion',
     type: 'varchar',
     length: 255,
+    default: '',
   })
-  public pass: string;
+  public secretQuestion: string;
 
-  // @PrimaryGeneratedColumn()
-  // public id: number;
-  //
-  // @Column({
-  //   name: 'login',
-  //   type: 'varchar',
-  //   length: 255,
-  //   unique: true,
-  // })
-  // public login: string;
-  //
-  // @Column({
-  //   name: 'password',
-  //   type: 'varchar',
-  //   length: 255,
-  // })
-  // public password: string;
-  //
-  // @Column({
-  //   name: 'firstName',
-  //   type: 'varchar',
-  //   length: 255,
-  // })
-  // public firstName: string;
-  //
-  // @Column({
-  //   name: 'secondName',
-  //   type: 'varchar',
-  //   default: '-',
-  //   length: 255,
-  // })
-  // public secondName: string;
-  //
-  // @Column({
-  //   name: 'lastName',
-  //   type: 'varchar',
-  //   length: 255,
-  // })
-  // public lastName: string;
-  //
-  // @Column({
-  //   name: 'birthday',
-  //   type: 'datetime',
-  //   default: new Date(),
-  // })
-  // public birthday: Date;
-  //
-  // @Column({
-  //   name: 'email',
-  //   type: 'varchar',
-  //   length: 255,
-  // })
-  // public email: string;
-  //
-  // @Column({
-  //   name: 'role',
-  //   type: 'varchar',
-  //   length: 255,
-  // })
-  // public role: string;
+  @Column({
+    name: 'secretAnswer',
+    type: 'varchar',
+    length: 255,
+    default: '',
+  })
+  public secretAnswer: string;
+
+  @Column({
+    name: 'role',
+    type: 'varchar',
+    length: 255,
+    default: 'USER',
+  })
+  public role: string;
+
+  @Column({
+    name: 'avatar',
+    type: 'varchar',
+    length: 255,
+    default: '',
+  })
+  public avatar: string;
+
+  @Column({
+    name: 'attempt',
+    type: 'int',
+    default: 1,
+  })
+  public attempt: number;
+
+  @Column({
+    name: 'closed',
+    type: 'int',
+    default: 0,
+  })
+  public closed: number;
+
+  @Column({
+    name: 'birthday',
+    type: 'datetime',
+    default: null,
+    // default: new Date(),
+  })
+  public birthday: Date;
+
 }
