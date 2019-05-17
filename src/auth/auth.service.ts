@@ -18,9 +18,17 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(user: User): Promise<any> {
+  async signIn(user: User, token: string): Promise<any> {
     // In the real-world app you shouldn't expose this method publicly
     // instead, return a token once you verify user credentials
+
+    if ( token ) {
+      // tslint:disable-next-line:no-console
+      console.log('token', token);
+      const verifyResult = await this.jwtService.verifyAsync(token);
+      // tslint:disable-next-line:no-console
+      console.log('verifyResult', verifyResult);
+    }
 
     const data = await this.usersService.signIn(user);
     if (data && data.length > 0) {
@@ -64,7 +72,7 @@ export class AuthService {
     // for example query user by id/email/username
 
     // tslint:disable-next-line:no-console
-    console.log('validateUser', payload)
+    console.log('validateUser', payload);
     return {};
   }
 }

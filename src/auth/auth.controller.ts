@@ -4,6 +4,7 @@
 
 import { Controller, Get, Post, Body, UseGuards, HttpStatus, HttpException } from '@nestjs/common';
 // import { AuthGuard } from '@nestjs/passport';
+import { Auth } from './auth.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { UserDto } from '../users/dto/user.dto';
@@ -13,8 +14,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signin')
-  async signIn(@Body() userDto: UserDto): Promise<any> {
-    const data = await this.authService.signIn(userDto);
+  async signIn(@Auth('authorization') token: string, @Body() userDto: UserDto): Promise<any> {
+    const data = await this.authService.signIn(userDto, token);
     if (!data) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
@@ -37,11 +38,6 @@ export class AuthController {
     }
     return data;
   }
-
-  // @Get('token')
-  // async createToken(): Promise<any> {
-  //   return await this.authService.createToken();
-  // }
 
   @Get('users')
   // @UseGuards(AuthGuard())
