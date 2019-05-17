@@ -11,7 +11,6 @@ import { TokensService } from '../tokens/tokens.service';
 
 @Injectable()
 export class AuthService {
-
   constructor(
     private readonly tokensService: TokensService,
     private readonly usersService: UsersService,
@@ -22,25 +21,37 @@ export class AuthService {
     // In the real-world app you shouldn't expose this method publicly
     // instead, return a token once you verify user credentials
 
-    if ( token ) {
+    let data = null;
+
+    if (token) {
       // tslint:disable-next-line:no-console
       console.log('token', token);
-      const verifyResult = await this.jwtService.verifyAsync(token);
-      // tslint:disable-next-line:no-console
-      console.log('verifyResult', verifyResult);
+      try {
+        const verifyResult = await this.jwtService.verifyAsync(token);
+        // tslint:disable-next-line:no-console
+        console.log('verifyResult', verifyResult);
+        data = await this.usersService.findOneById(verifyResult.id);
+        if (data && data.length > 0) {
+          return this.getAuthData(data[0], token);
+        }
+      } catch (error) {
+        return {
+          error,
+        };
+      }
     }
 
-    const data = await this.usersService.signIn(user);
+    data = await this.usersService.signIn(user);
     if (data && data.length > 0) {
-        const signInUser = data[0];
-        return await this.createToken(signInUser);
+      return this.getAuthData(data[0]);
     }
+
     return null;
   }
 
   async signOut(user: User): Promise<any> {
-    await this.tokensService.clearTokenByUserId(user.id);
-    return null;
+    await this.tokensService.clearTokenByUser(user);
+    return {};
   }
 
   async register(user: User): Promise<any> {
@@ -49,21 +60,17 @@ export class AuthService {
       if (data.error) {
         return data;
       } else {
-        return await this.createToken(data);
+        return await this.getAuthData(data);
       }
     }
     return null;
   }
 
   async createToken(user: any) {
-    const {id} = user;
+    const { id } = user;
     const playload: JwtPayload = { id };
     const token = this.jwtService.sign(playload);
-    return {
-      expiresIn: 3600,
-      token,
-      user,
-    };
+    return token;
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
@@ -74,5 +81,12 @@ export class AuthService {
     // tslint:disable-next-line:no-console
     console.log('validateUser', payload);
     return {};
+  }
+
+  async getAuthData(user, token = null): Promise<any> {
+    return {
+      token: token ? token : await this.createToken(user),
+      user,
+    };
   }
 }

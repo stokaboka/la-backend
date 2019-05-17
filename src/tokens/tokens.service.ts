@@ -15,13 +15,21 @@ export class TokensService {
   ) {}
 
   async clearTokenByUserId(idUser: number): Promise<any> {
-    await this.repository.delete( { idUser } );
+    await this.repository.delete({ idUser });
     return null;
   }
 
   async saveTokenByUserId(idUser: number, token: string): Promise<Tokens[]> {
-    const userToken: any = await this.repository.save( { idUser, token  });
+    const userToken: any = await this.repository.save({ idUser, token });
     return userToken;
+  }
+
+  async clearTokenByUser(user: any): Promise<any> {
+    if (user) {
+      this.clearTokenByUserId(user.id);
+    } else {
+      return null;
+    }
   }
 
   async findTokenByUserId(idUser: number): Promise<Tokens[]> {
