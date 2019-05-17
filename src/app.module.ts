@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
+ */
+
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
@@ -7,10 +11,6 @@ import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TokensModule } from './tokens/tokens.module';
-/*
- * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
- */
-
 
 @Module({
   imports: [TypeOrmModule.forRoot(), AuthModule, UsersModule, TokensModule],
