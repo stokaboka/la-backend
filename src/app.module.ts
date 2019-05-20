@@ -11,11 +11,20 @@ import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TokensModule } from './tokens/tokens.module';
+import { QuestionsController } from './questions/questions.controller';
+import { QuestionsService } from './questions/questions.service';
+import { QuestionsModule } from './questions/questions.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), AuthModule, UsersModule, TokensModule],
-  controllers: [AppController],
-  providers: [AppService, AuthService],
+  imports: [
+    TypeOrmModule.forRoot(),
+    AuthModule,
+    UsersModule,
+    TokensModule,
+    QuestionsModule,
+  ],
+  controllers: [AppController, QuestionsController],
+  providers: [AppService, AuthService, QuestionsService],
   exports: [AuthModule, UsersModule, TokensModule],
 })
 export class AppModule {

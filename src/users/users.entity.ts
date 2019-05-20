@@ -2,7 +2,7 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('Users')
 export class Users {
@@ -63,7 +63,7 @@ export class Users {
   })
   public phone: string;
 
-  @Column({
+  @CreateDateColumn({
     name: 'regDate',
     type: 'datetime',
     default: null,
@@ -78,7 +78,7 @@ export class Users {
   })
   public lastDate: Date;
 
-  @Column({
+  @UpdateDateColumn({
     name: 'updDate',
     type: 'datetime',
     default: null,
