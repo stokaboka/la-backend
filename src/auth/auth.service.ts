@@ -11,19 +11,21 @@ import { TokensService } from '../tokens/tokens.service';
 
 @Injectable()
 export class AuthService {
+
   constructor(
     private readonly tokensService: TokensService,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(user: User, token: string): Promise<any> {
+  async signIn(user: User, ptoken: string): Promise<any> {
     // In the real-world app you shouldn't expose this method publicly
     // instead, return a token once you verify user credentials
 
     let data = null;
 
-    if (token) {
+    if (ptoken) {
+      const token = ptoken.startsWith('Bearer') ? ptoken.substr(7) : ptoken;
       // tslint:disable-next-line:no-console
       console.log('token', token);
       try {
