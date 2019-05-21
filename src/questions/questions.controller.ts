@@ -11,8 +11,13 @@ export class QuestionsController {
 
   constructor(private readonly questionsService: QuestionsService) {}
 
-  @Get('test/:test/part/:part/phase/:phase/category/:category')
+  @Get('list/test/:test/part/:part/phase/:phase/category/:category')
   async findByParams(@Param() params): Promise<Questions[]> {
     return this.questionsService.findByParams(params);
+  }
+
+  @Get('count/test/:test/part/:part/phase/:phase')
+  async countByParams(@Param() params): Promise<number> {
+    return this.questionsService.countByParams(params);
   }
 }

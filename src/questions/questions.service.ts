@@ -22,4 +22,9 @@ export class QuestionsService {
   async findByParams(where: any): Promise<Questions[]> {
     return this.repository.find({where});
   }
+
+  async countByParams(where: any): Promise<number> {
+    return this.repository.count({where});
+  }
+
 }
