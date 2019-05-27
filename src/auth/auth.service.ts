@@ -27,11 +27,11 @@ export class AuthService {
     if (ptoken) {
       const token = ptoken.startsWith('Bearer') ? ptoken.substr(7) : ptoken;
       // tslint:disable-next-line:no-console
-      console.log('token', token);
+      // console.log('token', token);
       try {
         const verifyResult = await this.jwtService.verifyAsync(token);
         // tslint:disable-next-line:no-console
-        console.log('verifyResult', verifyResult);
+        // console.log('verifyResult', verifyResult);
         data = await this.usersService.findOneById(verifyResult.id);
         if (data && data.length > 0) {
           return this.getAuthData(data[0], token);

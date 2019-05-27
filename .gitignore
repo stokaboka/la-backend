@@ -4,6 +4,7 @@
 
 /package-lock.json
 /mysql
+/public
 
 # Logs
 logs
