@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
- */
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
@@ -14,6 +10,11 @@ import { TokensModule } from './tokens/tokens.module';
 import { QuestionsController } from './questions/questions.controller';
 import { QuestionsService } from './questions/questions.service';
 import { QuestionsModule } from './questions/questions.module';
+import { AnswersModule } from './answers/answers.module';
+/*
+ * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
+ */
+
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { QuestionsModule } from './questions/questions.module';
     UsersModule,
     TokensModule,
     QuestionsModule,
+    AnswersModule,
   ],
   controllers: [AppController, QuestionsController],
   providers: [AppService, AuthService, QuestionsService],
