@@ -4,8 +4,8 @@
 
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Answers')
-export class Answers {
+@Entity('Results')
+export class Results {
   @PrimaryGeneratedColumn()
   public id: number;
 

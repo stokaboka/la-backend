@@ -2,7 +2,7 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-export interface Answer {
+export interface Result {
   readonly id: number;
   readonly idUser: number;
   readonly attempt: number;

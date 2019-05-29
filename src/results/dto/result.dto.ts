@@ -2,7 +2,7 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-export class AnswerDto {
+export class ResultDto {
   readonly id: number;
   readonly idUser: number;
   readonly attempt: number;

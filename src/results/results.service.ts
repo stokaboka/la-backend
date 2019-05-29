@@ -5,21 +5,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Answer } from './interfaces/answer.interface';
-import { Answers } from './answers.entity';
+import { Result } from './interfaces/result.interface';
+import { Results } from './results.entity';
 
 @Injectable()
-export class AnswersService {
+export class ResultsService {
   constructor(
-    @InjectRepository(Answers)
-    private readonly repository: Repository<Answers>,
+    @InjectRepository(Results)
+    private readonly repository: Repository<Results>,
   ) {}
 
-  async findAll(): Promise<Answers[]> {
+  async findAll(): Promise<Results[]> {
     return this.repository.find();
   }
 
-  async findByParams(where: any): Promise<Answers[]> {
+  async findByParams(where: any): Promise<Results[]> {
     return this.repository.find({where});
   }
 
@@ -27,11 +27,11 @@ export class AnswersService {
     return this.repository.count({where});
   }
 
-  async save(answer: Answer): Promise<any> {
+  async save(result: Result): Promise<any> {
     try {
-      return await this.repository.save(answer);
+      return await this.repository.save(result);
     } catch (error) {
-      return { error, answer };
+      return { error, result };
     }
   }
 }
