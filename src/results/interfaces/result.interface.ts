@@ -10,7 +10,7 @@ export interface Result {
   readonly test: number;
   readonly part: number;
   readonly phase: number;
-  readonly category: number;
+  readonly level: number;
   readonly answers: string;
   readonly extra: string;
 }

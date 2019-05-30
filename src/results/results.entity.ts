@@ -53,12 +53,12 @@ export class Results {
   public phase: number;
 
   @Column({
-    name: 'category',
+    name: 'level',
     type: 'int',
     default: 0,
     nullable: true,
   })
-  public category: number;
+  public level: number;
 
   @Column({
     name: 'answers',

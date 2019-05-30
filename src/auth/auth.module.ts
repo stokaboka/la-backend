@@ -15,9 +15,11 @@ import { PassportModule } from '@nestjs/passport';
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secretOrPrivateKey: 'secretKey',
+      // secretOrPrivateKey: 'secretKey',
+      secretOrPrivateKey: 'svoboda-lingvo',
       signOptions: {
-        expiresIn: 3600,
+        // expiresIn: 3600,
+        expiresIn: '3h',
       },
     }),
     UsersModule,

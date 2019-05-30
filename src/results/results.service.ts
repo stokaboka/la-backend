@@ -20,7 +20,10 @@ export class ResultsService {
   }
 
   async findByParams(where: any): Promise<Results[]> {
-    return this.repository.find({where});
+    const order: any = {
+      phase: 'ASC',
+    }
+    return this.repository.find({where, order});
   }
 
   async countByParams(where: any): Promise<number> {
