@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users.entity';
 import { User } from './interfaces/user.interface';
+import { UserFixDto } from './dto/user.fix.dto';
 
 @Injectable()
 export class UsersService {
@@ -73,6 +74,12 @@ export class UsersService {
       select: this.select,
       where: { email },
     });
+  }
+
+  async fix(userfixDto: UserFixDto): Promise<any> {
+    // tslint:disable-next-line:no-console
+    console.dir(userfixDto);
+    return await this.repository.update(userfixDto, { closed: 1 } );
   }
 
   fixObject(obj: any) {

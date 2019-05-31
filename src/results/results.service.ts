@@ -31,8 +31,10 @@ export class ResultsService {
   }
 
   async save(result: Result): Promise<any> {
+    const { idUser, attempt, test, part, phase } = result
     try {
-      return await this.repository.save(result);
+      await this.repository.delete({ idUser, attempt, test, part, phase });
+      return await this.repository.insert(result);
     } catch (error) {
       return { error, result };
     }

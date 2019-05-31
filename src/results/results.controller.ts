@@ -14,11 +14,13 @@ export class ResultsController {
   constructor(private readonly resultsService: ResultsService) {}
 
   @Get('list/user/:idUser/attempt/:attempt')
+  @UseGuards(new JwtAuthGuard())
   async findByParams(@Param() params): Promise<Results[]> {
     return this.resultsService.findByParams(params);
   }
 
   @Get('count/user/:idUser/attempt/:attempt')
+  @UseGuards(new JwtAuthGuard())
   async countByParams(@Param() params): Promise<number> {
     return this.resultsService.countByParams(params);
   }
