@@ -27,7 +27,7 @@ export class ResultsController {
 
   @Post('save')
   @UseGuards(new JwtAuthGuard())
-  async save(@Body() answerDto: ResultDto): Promise<any> {
-    return this.resultsService.save(answerDto);
+  async save(@Body() resultDto: ResultDto): Promise<any> {
+    return this.resultsService.save(resultDto);
   }
 }

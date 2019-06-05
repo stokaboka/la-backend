@@ -15,6 +15,11 @@ import { QuestionsController } from './questions/questions.controller';
 import { QuestionsService } from './questions/questions.service';
 import { QuestionsModule } from './questions/questions.module';
 import { ResultsModule } from './results/results.module';
+import { DescriptionsModule } from './descriptions/descriptions.module';
+import { ResultsController } from './results/results.controller';
+import { ResultsService } from './results/results.service';
+import { DescriptionsController } from './descriptions/descriptions.controller';
+import { DescriptionsService } from './descriptions/descriptions.service';
 
 @Module({
   imports: [
@@ -24,10 +29,28 @@ import { ResultsModule } from './results/results.module';
     TokensModule,
     QuestionsModule,
     ResultsModule,
+    DescriptionsModule,
   ],
-  controllers: [AppController, QuestionsController],
-  providers: [AppService, AuthService, QuestionsService],
-  exports: [AuthModule, UsersModule, TokensModule],
+  controllers: [
+    AppController,
+    QuestionsController,
+    ResultsController,
+    DescriptionsController,
+  ],
+  providers: [
+    AppService,
+    AuthService,
+    QuestionsService,
+    ResultsService,
+    DescriptionsService,
+  ],
+  exports: [
+    AuthModule,
+    UsersModule,
+    TokensModule,
+    ResultsModule,
+    DescriptionsModule,
+  ],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) {}
