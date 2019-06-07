@@ -128,7 +128,20 @@ export class UsersService {
   async fix(userfixDto: UserFixDto): Promise<any> {
     // tslint:disable-next-line:no-console
     console.dir(userfixDto);
-    return await this.repository.update(userfixDto, { closed: 1 } );
+    const {id} = userfixDto;
+    return await this.repository.update({id}, { closed: 1 } );
+  }
+
+  async unfix(userfixDto: UserFixDto): Promise<any> {
+    // tslint:disable-next-line:no-console
+    console.dir(userfixDto);
+    const {id} = userfixDto;
+    const row: any = await this.repository.findOne(id)
+    let {attempt} = row;
+    attempt++;
+    // tslint:disable-next-line:no-console
+    console.log(row, attempt);
+    return await this.repository.update({id}, { closed: 0, attempt } );
   }
 
   fixObject(obj: any) {

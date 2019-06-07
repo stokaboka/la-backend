@@ -35,4 +35,10 @@ export class UsersController {
   fix(@Body() userfixDto: UserFixDto): Promise<any> {
     return this.usersService.fix(userfixDto);
   }
+
+  @Post('unfix')
+  @UseGuards(new JwtAuthGuard())
+  unfix(@Body() userfixDto: UserFixDto): Promise<any> {
+    return this.usersService.unfix(userfixDto);
+  }
 }
