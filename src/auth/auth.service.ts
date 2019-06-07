@@ -81,7 +81,7 @@ export class AuthService {
     // for example query user by id/email/username
 
     // tslint:disable-next-line:no-console
-    console.log('validateUser', payload);
+    // console.log('validateUser', payload);
     return {};
   }
 
