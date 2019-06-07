@@ -4,6 +4,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Like } from 'typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users.entity';
 import { User } from './interfaces/user.interface';
@@ -60,6 +61,54 @@ export class UsersService {
 
   async findAll(): Promise<Users[]> {
     return await this.repository.find({ select: this.select });
+  }
+
+  async find(params: any): Promise<any> {
+    // return await this.repository.find({ select: this.select, where });
+
+    const {page, limit, sortBy, descending, filter} = params;
+    const {select} = this;
+    // console.log('params', request.params);
+    // console.log('body', request.body);
+    // console.log('query', request.query);
+
+    let where: any[] = [];
+    if (filter) {
+      where = [
+        {login: Like(`%${filter}%`) },
+        {firstName: Like(`%${filter}%`)},
+        {secondName: Like(`%${filter}%`)},
+        {lastName: Like(`%${filter}%`)},
+        {role: Like(`%${filter}%`)},
+      ];
+    }
+
+    const order: any = {};
+
+    if (sortBy) {
+      order[sortBy] = descending === 'true' ? 'DESC' : 'ASC';
+    }
+
+    const take = limit || 10;
+    const skip = ((page || 1) - 1) * (limit || 0);
+
+    const [result, total] = await this.repository.findAndCount({
+      select,
+      where,
+      order,
+      take,
+      skip,
+    });
+
+    return {
+      rows: result,
+      rowsNumber: total,
+    };
+
+  }
+
+  async countAll(): Promise<number> {
+    return await this.repository.count();
   }
 
   async findOneById(id: number): Promise<Users[]> {
