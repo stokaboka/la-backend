@@ -33,8 +33,9 @@ export class AuthService {
         // tslint:disable-next-line:no-console
         // console.log('verifyResult', verifyResult);
         data = await this.usersService.findOneById(verifyResult.id);
-        if (data && data.length > 0) {
-          return this.getAuthData(data[0], token);
+        // if (data && data.length > 0) {
+        if (data) {
+          return this.getAuthData(data, token);
         }
       } catch (error) {
         return {
@@ -44,8 +45,8 @@ export class AuthService {
     }
 
     data = await this.usersService.signIn(user);
-    if (data && data.length > 0) {
-      return this.getAuthData(data[0]);
+    if (data) {
+      return this.getAuthData(data);
     }
 
     return null;

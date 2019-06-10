@@ -8,13 +8,14 @@ import { Header } from '../decorators/header.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { UserDto } from '../users/dto/user.dto';
+import { Users } from '../users/users.entity';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signin')
-  async signIn(@Body() userDto: UserDto, @Header('authorization') token: string): Promise<any> {
+  async signIn(@Body() userDto: UserDto, @Header('authorization') token: string): Promise<Users> {
     const user = await this.authService.signIn(userDto, token);
     if (!user) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);

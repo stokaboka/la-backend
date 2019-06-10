@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { Users } from './users.entity';
 import { User } from './interfaces/user.interface';
 import { UserFixDto } from './dto/user.fix.dto';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -35,8 +36,8 @@ export class UsersService {
     private readonly repository: Repository<Users>,
   ) {}
 
-  async signIn(user: User): Promise<Users[]> {
-    const data: Users[] = await this.repository.find({
+  async signIn(user: User): Promise<Users> {
+    const data: Users = await this.repository.findOne({
       select: this.select,
       where: { login: user.login, password: user.password },
     });
@@ -59,15 +60,9 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<Users[]> {
-    return await this.repository.find({ select: this.select });
-  }
-
   async find(params: any): Promise<any> {
-    // return await this.repository.find({ select: this.select, where });
-
-    const {page, limit, sortBy, descending, filter} = params;
-    const {select} = this;
+    const { page, limit, sortBy, descending, filter } = params;
+    const { select } = this;
     // console.log('params', request.params);
     // console.log('body', request.body);
     // console.log('query', request.query);
@@ -75,11 +70,11 @@ export class UsersService {
     let where: any[] = [];
     if (filter) {
       where = [
-        {login: Like(`%${filter}%`) },
-        {firstName: Like(`%${filter}%`)},
-        {secondName: Like(`%${filter}%`)},
-        {lastName: Like(`%${filter}%`)},
-        {role: Like(`%${filter}%`)},
+        { login: Like(`%${filter}%`) },
+        { firstName: Like(`%${filter}%`) },
+        { secondName: Like(`%${filter}%`) },
+        { lastName: Like(`%${filter}%`) },
+        { role: Like(`%${filter}%`) },
       ];
     }
 
@@ -104,22 +99,21 @@ export class UsersService {
       rows: result,
       rowsNumber: total,
     };
-
   }
 
   async countAll(): Promise<number> {
     return await this.repository.count();
   }
 
-  async findOneById(id: number): Promise<Users[]> {
-    return await this.repository.find({
+  async findOneById(id: number): Promise<Users> {
+    return await this.repository.findOne({
       select: this.select,
       where: { id },
     });
   }
 
-  async findOneByEmail(email: string): Promise<Users[]> {
-    return await this.repository.find({
+  async findOneByEmail(email: string): Promise<Users> {
+    return await this.repository.findOne({
       select: this.select,
       where: { email },
     });
@@ -128,20 +122,28 @@ export class UsersService {
   async fix(userfixDto: UserFixDto): Promise<any> {
     // tslint:disable-next-line:no-console
     console.dir(userfixDto);
-    const {id} = userfixDto;
-    return await this.repository.update({id}, { closed: 1 } );
+    const { id } = userfixDto;
+    await this.repository.update({ id }, { closed: 1 });
+    return await this.findOneById(id);
   }
 
   async unfix(userfixDto: UserFixDto): Promise<any> {
     // tslint:disable-next-line:no-console
     console.dir(userfixDto);
-    const {id} = userfixDto;
-    const row: any = await this.repository.findOne(id)
-    let {attempt} = row;
+    const { id } = userfixDto;
+    const row: any = await this.repository.findOne(id);
+    let { attempt } = row;
     attempt++;
     // tslint:disable-next-line:no-console
     console.log(row, attempt);
-    return await this.repository.update({id}, { closed: 0, attempt } );
+    await this.repository.update({ id }, { closed: 0, attempt });
+    return await this.findOneById(id);
+  }
+
+  async update(user: User): Promise<any> {
+    const { id } = user;
+    const dt = await this.repository.update({ id }, user);
+    return dt;
   }
 
   fixObject(obj: any) {

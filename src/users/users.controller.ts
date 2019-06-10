@@ -2,43 +2,43 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-import { Body, Controller, Get, Param, Query, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Param, Query, UseGuards, HttpException, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Users } from './users.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserFixDto } from './dto/user.fix.dto';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get('all')
-  @UseGuards(new JwtAuthGuard())
-  findAll(): Promise<Users[]> {
-    return this.usersService.findAll();
-  }
-
-  @Get('find')
+  @Get()
   @UseGuards(new JwtAuthGuard())
   find(@Query() params): Promise<any> {
     return this.usersService.find(params);
   }
 
-  @Get('count')
+  @Put()
   @UseGuards(new JwtAuthGuard())
-  countAll(): Promise<number> {
-    return this.usersService.countAll();
+  update(@Body() userDto: UserDto): Promise<any> {
+    try {
+      return this.usersService.update(userDto);
+    } catch (e) {
+      throw new HttpException('Unauthorized', HttpStatus.NO_CONTENT);
+    }
   }
 
-  @Post('fix')
+  @Put('fix')
   @UseGuards(new JwtAuthGuard())
   fix(@Body() userfixDto: UserFixDto): Promise<any> {
     return this.usersService.fix(userfixDto);
   }
 
-  @Post('unfix')
+  @Put('unfix')
   @UseGuards(new JwtAuthGuard())
   unfix(@Body() userfixDto: UserFixDto): Promise<any> {
     return this.usersService.unfix(userfixDto);
   }
+
 }
