@@ -13,16 +13,22 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class ResultsController {
   constructor(private readonly resultsService: ResultsService) {}
 
-  @Get('list/user/:idUser/attempt/:attempt')
+  @Get('user/:idUser')
   @UseGuards(new JwtAuthGuard())
-  async findByParams(@Param() params): Promise<Results[]> {
-    return this.resultsService.findByParams(params);
+  async findUser(@Param() params): Promise<Results[]> {
+    return this.resultsService.find(params);
+  }
+
+  @Get('user/:idUser/attempt/:attempt')
+  @UseGuards(new JwtAuthGuard())
+  async findUserAttempts(@Param() params): Promise<Results[]> {
+    return this.resultsService.find(params);
   }
 
   @Get('count/user/:idUser/attempt/:attempt')
   @UseGuards(new JwtAuthGuard())
   async countByParams(@Param() params): Promise<number> {
-    return this.resultsService.countByParams(params);
+    return this.resultsService.count(params);
   }
 
   @Post('save')
