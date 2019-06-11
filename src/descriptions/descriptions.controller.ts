@@ -8,13 +8,7 @@ import { DescriptionFind } from './dto/description.find.dto';
 export class DescriptionsController {
   constructor(readonly descriptionsService: DescriptionsService) {}
 
-  @Get('all')
-  @UseGuards(new JwtAuthGuard())
-  async findAll(): Promise<Descriptions[]> {
-    return this.descriptionsService.findAll();
-  }
-
-  @Get('find')
+  @Get()
   @UseGuards(new JwtAuthGuard())
   async findOne(@Param() params: DescriptionFind): Promise<Descriptions> {
     return this.descriptionsService.findOne(params);

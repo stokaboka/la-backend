@@ -11,7 +11,7 @@ export class QuestionsController {
 
   constructor(private readonly questionsService: QuestionsService) {}
 
-  @Get('list/test/:test/part/:part/phase/:phase/category/:category')
+  @Get('/test/:test/part/:part/phase/:phase/category/:category')
   async findByParams(@Param() params): Promise<Questions[]> {
     return this.questionsService.findByParams(params);
   }

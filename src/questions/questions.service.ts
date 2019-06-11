@@ -19,12 +19,21 @@ export class QuestionsService {
     return this.repository.find();
   }
 
+  async find(where: any): Promise<any> {
+    return this.repository.find({ where });
+    const [result, total] = await this.repository.findAndCount({ where });
+
+    return {
+      rows: result,
+      rowsNumber: total,
+    };
+  }
+
   async findByParams(where: any): Promise<Questions[]> {
-    return this.repository.find({where});
+    return this.repository.find({ where });
   }
 
   async countByParams(where: any): Promise<number> {
-    return this.repository.count({where});
+    return this.repository.count({ where });
   }
-
 }
