@@ -16,13 +16,13 @@ export class ResultsController {
   @Get('user/:idUser')
   @UseGuards(new JwtAuthGuard())
   async findUser(@Param() params): Promise<Results[]> {
-    return this.resultsService.find(params);
+    return this.resultsService.find(ResultsService.SELECT_RESULTS, params);
   }
 
   @Get('user/:idUser/attempt/:attempt')
   @UseGuards(new JwtAuthGuard())
   async findUserAttempts(@Param() params): Promise<Results[]> {
-    return this.resultsService.find(params);
+    return this.resultsService.find(ResultsService.SELECT_RESULT, params);
   }
 
   @Get('count/user/:idUser/attempt/:attempt')

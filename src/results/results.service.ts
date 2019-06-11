@@ -10,6 +10,26 @@ import { Results } from './results.entity';
 
 @Injectable()
 export class ResultsService {
+  public static SELECT_RESULTS: string[] = [
+    'id',
+    'idUser',
+    'attempt',
+    'part',
+    'level',
+  ];
+  public static SELECT_RESULT: string[] = [
+    'id',
+    'idUser',
+    'attempt',
+    'dt',
+    'test',
+    'part',
+    'phase',
+    'level',
+    'answers',
+    'extra',
+  ];
+
   constructor(
     @InjectRepository(Results)
     private readonly repository: Repository<Results>,
@@ -19,19 +39,19 @@ export class ResultsService {
     return this.repository.find();
   }
 
-  async find(where: any): Promise<Results[]> {
+  async find(select: string[], where: any): Promise<Results[]> {
     const order: any = {
       phase: 'ASC',
-    }
-    return this.repository.find({where, order});
+    };
+    return this.repository.find({ select, where, order });
   }
 
   async count(where: any): Promise<number> {
-    return this.repository.count({where});
+    return this.repository.count({ where });
   }
 
   async save(result: Result): Promise<any> {
-    const { idUser, attempt, test, part, phase } = result
+    const { idUser, attempt, test, part, phase } = result;
     try {
       await this.repository.delete({ idUser, attempt, test, part, phase });
       return await this.repository.insert(result);
