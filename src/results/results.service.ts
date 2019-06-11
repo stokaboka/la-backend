@@ -4,20 +4,13 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Result } from './interfaces/result.interface';
 import { Results } from './results.entity';
 
 @Injectable()
 export class ResultsService {
-  public static SELECT_RESULTS: string[] = [
-    'id',
-    'idUser',
-    'attempt',
-    'part',
-    'level',
-  ];
-  public static SELECT_RESULT: string[] = [
+  private select: any = [
     'id',
     'idUser',
     'attempt',
@@ -39,14 +32,56 @@ export class ResultsService {
     return this.repository.find();
   }
 
-  async find(select: string[], where: any): Promise<Results[]> {
+  async find(params: any, query: any): Promise<any> {
+    const { page, limit, sortBy, descending, filter } = query;
+    const { select } = this;
+    // tslint:disable-next-line:no-console
+    console.log('params', params);
+    // console.log('body', request.body);
+    // console.log('query', request.query);
+
+    let where: any = params;
+    if (filter) {
+      where = [
+        // { login: Like(`%${filter}%`) },
+        // { firstName: Like(`%${filter}%`) },
+        // { secondName: Like(`%${filter}%`) },
+        // { lastName: Like(`%${filter}%`) },
+        // { role: Like(`%${filter}%`) },
+      ];
+    }
+
+    const order: any = {};
+
+    if (sortBy) {
+      order[sortBy] = descending === 'true' ? 'DESC' : 'ASC';
+    }
+
+    const take = limit || 10;
+    const skip = ((page || 1) - 1) * (limit || 0);
+
+    const [result, total] = await this.repository.findAndCount({
+      select,
+      where,
+      order,
+      take,
+      skip,
+    });
+
+    return {
+      rows: result,
+      rowsNumber: total,
+    };
+  }
+
+  async findByParams(where: any): Promise<Results[]> {
     const order: any = {
       phase: 'ASC',
     };
-    return this.repository.find({ select, where, order });
+    return this.repository.find({ where, order });
   }
 
-  async count(where: any): Promise<number> {
+  async countByParams(where: any): Promise<number> {
     return this.repository.count({ where });
   }
 

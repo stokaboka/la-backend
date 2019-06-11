@@ -2,8 +2,7 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
-import { Header } from '../decorators/header.decorator';
+import { Controller, Get, Post, Body, Param, UseGuards, Query } from '@nestjs/common';
 import { ResultsService } from './results.service';
 import { Results } from './results.entity';
 import { ResultDto } from './dto/result.dto';
@@ -15,20 +14,20 @@ export class ResultsController {
 
   @Get('user/:idUser')
   @UseGuards(new JwtAuthGuard())
-  async findUser(@Param() params): Promise<Results[]> {
-    return this.resultsService.find(ResultsService.SELECT_RESULTS, params);
+  find(@Param() params, @Query() query): Promise<any> {
+    return this.resultsService.find(params, query);
   }
 
   @Get('user/:idUser/attempt/:attempt')
   @UseGuards(new JwtAuthGuard())
   async findUserAttempts(@Param() params): Promise<Results[]> {
-    return this.resultsService.find(ResultsService.SELECT_RESULT, params);
+    return this.resultsService.findByParams(params);
   }
 
   @Get('count/user/:idUser/attempt/:attempt')
   @UseGuards(new JwtAuthGuard())
   async countByParams(@Param() params): Promise<number> {
-    return this.resultsService.count(params);
+    return this.resultsService.countByParams(params);
   }
 
   @Post('save')
