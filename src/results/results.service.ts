@@ -38,12 +38,14 @@ export class ResultsService {
 
     const attempts: any[] = await this.repository
       .createQueryBuilder()
-      .select('attempt')
+      .select('test')
+      .addSelect('attempt')
       .addSelect('MAX(dt)', 'dt')
       .where('idUser = :idUser')
       .setParameter('idUser', idUser)
-      .groupBy('attempt')
-      .orderBy('attempt', 'ASC')
+      .groupBy('test')
+      .addGroupBy('attempt')
+      .orderBy({ test: 'ASC', attempt: 'ASC'})
       .getRawMany();
 
     return attempts;
