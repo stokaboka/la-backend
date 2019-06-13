@@ -4,7 +4,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Result } from './interfaces/result.interface';
 import { Results } from './results.entity';
 
@@ -30,6 +30,23 @@ export class ResultsService {
 
   async findAll(): Promise<Results[]> {
     return this.repository.find();
+  }
+
+  async attempts(params: any): Promise<any[]> {
+
+    const { idUser } = params;
+
+    const attempts: any[] = await this.repository
+      .createQueryBuilder()
+      .select('attempt')
+      .addSelect('MAX(dt)', 'dt')
+      .where('idUser = :idUser')
+      .setParameter('idUser', idUser)
+      .groupBy('attempt')
+      .orderBy('attempt', 'ASC')
+      .getRawMany();
+
+    return attempts;
   }
 
   async find(params: any, query: any): Promise<any> {
