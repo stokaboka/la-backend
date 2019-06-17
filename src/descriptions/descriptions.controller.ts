@@ -8,9 +8,9 @@ import { DescriptionFind } from './dto/description.find.dto';
 export class DescriptionsController {
   constructor(readonly descriptionsService: DescriptionsService) {}
 
-  @Get()
+  @Get('test/:test/results/:results')
   @UseGuards(new JwtAuthGuard())
-  async findOne(@Param() params: DescriptionFind): Promise<Descriptions> {
-    return this.descriptionsService.findOne(params);
+  async findOne(@Param() params: DescriptionFind): Promise<any[]> {
+    return this.descriptionsService.findDescriptionsResults(params);
   }
 }
