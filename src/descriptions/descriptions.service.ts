@@ -66,7 +66,7 @@ export class DescriptionsService {
     }
 
     // tslint:disable-next-line:no-console
-    console.dir(out);
+    // console.dir(out);
     return out;
   }
 

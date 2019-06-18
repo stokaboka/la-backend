@@ -30,7 +30,8 @@ export class QuestionsService {
   }
 
   async findByParams(where: any): Promise<Questions[]> {
-    return this.repository.find({ where });
+    const order: any = { part: 'ASC', phase: 'ASC', category: 'ASC' };
+    return this.repository.find({ where, order });
   }
 
   async countByParams(where: any): Promise<number> {
