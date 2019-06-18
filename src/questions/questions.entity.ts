@@ -71,6 +71,13 @@ export class Questions {
   public answer: string;
 
   @Column({
+    name: 'target',
+    type: 'text',
+    nullable: true,
+  })
+  public target: string;
+
+  @Column({
     name: 'weigths',
     type: 'varchar',
     default: '',

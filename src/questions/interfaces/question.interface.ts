@@ -12,6 +12,7 @@ export interface Question {
   readonly category: number;
   readonly question: string;
   readonly answer: string;
+  readonly target: string;
   readonly weigths: string;
   readonly audio: string;
 }

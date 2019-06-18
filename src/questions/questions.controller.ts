@@ -12,7 +12,12 @@ export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
   @Get('/test/:test/part/:part/phase/:phase/category/:category')
-  async findByParams(@Param() params): Promise<Questions[]> {
+  async findByTPPC(@Param() params): Promise<Questions[]> {
+    return this.questionsService.findByParams(params);
+  }
+
+  @Get('/test/:test/part/:part/phase/:phase')
+  async findByTPP(@Param() params): Promise<Questions[]> {
     return this.questionsService.findByParams(params);
   }
 
