@@ -48,7 +48,9 @@ export class ResultsService {
       .orderBy({ test: 'ASC', attempt: 'ASC'})
       .getRawMany();
 
-    return attempts;
+    return attempts.map((e, id) => {
+      return {...e, id};
+    });
   }
 
   async find(params: any, query: any): Promise<any> {
