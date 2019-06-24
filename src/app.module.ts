@@ -17,6 +17,7 @@ import { ResultsService } from './results/results.service';
 import { DescriptionsController } from './descriptions/descriptions.controller';
 import { DescriptionsService } from './descriptions/descriptions.service';
 import { AttemptsController } from './attempts/attempts.controller';
+import { ReportsModule } from './reports/reports.module';
 /*
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
@@ -31,6 +32,7 @@ import { AttemptsController } from './attempts/attempts.controller';
     QuestionsModule,
     ResultsModule,
     DescriptionsModule,
+    ReportsModule,
   ],
   controllers: [
     AppController,
