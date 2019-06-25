@@ -2,9 +2,18 @@ import { Injectable } from '@nestjs/common';
 // import { InjectRepository } from '@nestjs/typeorm';
 // import { Repository } from 'typeorm';
 import { Workbook } from 'exceljs';
+import { ReportsDto } from './dto/reports.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Reports } from './reports.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ReportsService {
+
+  constructor(
+    @InjectRepository(Reports)
+    private readonly repository: Repository<Reports>,
+  ) {}
 
   fillCellByResultIndex(ws, index, row) {
     const ACode = 65;
@@ -16,6 +25,16 @@ export class ReportsService {
       pattern: 'solid',
       fgColor: {argb: 'FFFF0000'},
     };
+  }
+
+  async save(data: ReportsDto): Promise<any> {
+    const { idUser, attempt, test } = data;
+    try {
+      await this.repository.delete({ idUser, attempt, test });
+      return await this.repository.insert(data);
+    } catch (error) {
+      return { error, data };
+    }
   }
 
   async xlsx(data: any): Promise<any> {
