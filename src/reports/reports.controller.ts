@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Header, UseGuards } from '@nestjs/common';
 import { ReportsService } from './reports.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ReportsDto } from './dto/reports.dto';
@@ -13,9 +13,10 @@ export class ReportsController {
     return this.reportsService.save(data);
   }
 
-  @Get('result/user/:user/test/:test/attempt/:attempt/format/:format')
+  @Get('xlsx/user/:user/test/:test/attempt/:attempt')
   @UseGuards(new JwtAuthGuard())
-  xlsx(@Param() params: any): Promise<any> {
-    return this.reportsService.xlsx(params);
+  @Header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  reportFile(@Param() params: any): Promise<any> {
+    return this.reportsService.reportFile(params, 'xlsx');
   }
 }
