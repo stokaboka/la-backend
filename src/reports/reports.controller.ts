@@ -7,15 +7,15 @@ import { ReportsDto } from './dto/reports.dto';
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
-  @Post('result')
+  @Post('save')
   @UseGuards(new JwtAuthGuard())
   saveResult(@Body() data: ReportsDto): Promise<any> {
     return this.reportsService.save(data);
   }
 
-  @Get('result/xlsx/user/:user/attempt/:attempt')
+  @Get('result/user/:user/test/:test/attempt/:attempt/format/:format')
   @UseGuards(new JwtAuthGuard())
-  xlsx(@Param() data: any): Promise<any> {
-    return this.reportsService.xlsx(data);
+  xlsx(@Param() params: any): Promise<any> {
+    return this.reportsService.xlsx(params);
   }
 }
