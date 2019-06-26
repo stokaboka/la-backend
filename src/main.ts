@@ -11,6 +11,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
 
+import { ConfigService } from './config/config.service';
+
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
 
@@ -30,8 +32,17 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
   app.enableCors();
-  const port = process.env.SERVER_PORT || 3000;
-  const host = process.env.SERVER_HOST || '0.0.0.0';
-  await app.listen(port, host);
+
+  const port = app.get('ConfigService').port || 3000;
+  const host = app.get('ConfigService').host || '0.0.0.0';
+
+  try {
+    await app.listen(port, host);
+    // tslint:disable-next-line:no-console
+    console.log('Server started:', host, port);
+  } catch (e) {
+    // tslint:disable-next-line:no-console
+    console.log('Server failed:', e.message);
+  }
 }
 bootstrap();

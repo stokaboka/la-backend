@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
+ */
+
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
@@ -18,10 +22,7 @@ import { DescriptionsController } from './descriptions/descriptions.controller';
 import { DescriptionsService } from './descriptions/descriptions.service';
 import { AttemptsController } from './attempts/attempts.controller';
 import { ReportsModule } from './reports/reports.module';
-/*
- * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
- */
-
+import { ConfigModule } from './config/config.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ReportsModule } from './reports/reports.module';
     ResultsModule,
     DescriptionsModule,
     ReportsModule,
+    ConfigModule,
   ],
   controllers: [
     AppController,
@@ -54,6 +56,7 @@ import { ReportsModule } from './reports/reports.module';
     TokensModule,
     ResultsModule,
     DescriptionsModule,
+    ConfigModule,
   ],
 })
 export class AppModule {

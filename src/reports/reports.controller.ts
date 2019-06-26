@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
+ */
+
 import { Controller, Get, Post, Param, Body, Header, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { ReportsService } from './reports.service';
@@ -15,7 +19,7 @@ export class ReportsController {
   }
 
   @Get('xlsx/user/:user/test/:test/attempt/:attempt')
-  // @UseGuards(new JwtAuthGuard())
+  @UseGuards(new JwtAuthGuard())
   async reportFile(
     @Param() params: any,
     @Res() res: Response,
