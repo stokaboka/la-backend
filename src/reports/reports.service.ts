@@ -47,10 +47,8 @@ export class ReportsService {
       }
 
       if (resultReport) {
-        const result = await resultReport.generate(report.data);
-        // tslint:disable-next-line:no-console
-        console.log('result', result);
-        return result;
+        const resultBuffer = await resultReport.generate(report.data);
+        return resultBuffer;
       }
       return new Buffer('unsupported format');
     } catch (error) {

@@ -30,6 +30,8 @@ export class ReportsController {
     res.set({
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Content-Length': buffer.length,
+      'Accept': 'application/vnd.ms-excel',
+      'Content-Disposition': 'attachment',
     });
 
     stream.pipe(res);
