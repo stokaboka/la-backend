@@ -4,11 +4,12 @@
 
 import { Workbook } from 'exceljs';
 import { ResultReport } from './ResultReport';
+import { ConfigService } from '../../config/config.service';
 
 export class ExcelResultReport extends ResultReport {
 
-  constructor() {
-    super(ResultReport.config.xlsx);
+  constructor(config: ConfigService) {
+    super('xlsx', config);
   }
 
   fillCellByResultIndex(ws, index, row) {

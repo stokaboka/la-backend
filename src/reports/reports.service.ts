@@ -10,6 +10,7 @@ import { Reports } from './reports.entity';
 import { ResultReport } from './generators/ResultReport';
 import { ExcelResultReport } from './generators/ExcelResultReport';
 import { Readable } from 'stream';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class ReportsService {
@@ -17,6 +18,7 @@ export class ReportsService {
   constructor(
     @InjectRepository(Reports)
     private readonly repository: Repository<Reports>,
+    private readonly config: ConfigService,
   ) {}
 
   async save(data: ReportsDto): Promise<any> {
@@ -40,7 +42,7 @@ export class ReportsService {
 
       switch (format.toUpperCase()) {
         case 'XLSX':
-          resultReport = new ExcelResultReport();
+          resultReport = new ExcelResultReport(this.config);
           break;
       }
 
