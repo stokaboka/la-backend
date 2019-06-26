@@ -58,6 +58,11 @@ export class ResultReport {
   }
 
   async generate(data: any): Promise<Buffer> {
-    return new Buffer('implement me');
+    return new Buffer('ResultReport.generate: implement me');
   }
+
+  toBuffer(dataObject: any): Promise<Buffer> {
+    return Promise.reject(new Buffer('ResultReport.toBuffer: implement me'));
+  }
+
 }

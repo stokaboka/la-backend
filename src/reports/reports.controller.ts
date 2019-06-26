@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Param, Body, Header, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Header, Res, UseGuards } from '@nestjs/common';
+import { Response } from 'express';
 import { ReportsService } from './reports.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ReportsDto } from './dto/reports.dto';
@@ -14,9 +15,19 @@ export class ReportsController {
   }
 
   @Get('xlsx/user/:user/test/:test/attempt/:attempt')
-  @UseGuards(new JwtAuthGuard())
-  @Header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-  reportFile(@Param() params: any): Promise<any> {
-    return this.reportsService.reportFile(params, 'xlsx');
+  // @UseGuards(new JwtAuthGuard())
+  async reportFile(
+    @Param() params: any,
+    @Res() res: Response,
+  ) {
+    const buffer = await this.reportsService.reportFile(params, 'xlsx');
+    const stream = ReportsService.getReadableStream(buffer);
+
+    res.set({
+      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'Content-Length': buffer.length,
+    });
+
+    stream.pipe(res);
   }
 }

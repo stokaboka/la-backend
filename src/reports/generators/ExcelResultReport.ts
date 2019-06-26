@@ -5,9 +5,6 @@
 import { Workbook } from 'exceljs';
 import { ResultReport } from './ResultReport';
 
-// tslint:disable-next-line:no-var-requires
-const unstream = require('unstream');
-
 export class ExcelResultReport extends ResultReport {
 
   constructor() {
@@ -26,11 +23,15 @@ export class ExcelResultReport extends ResultReport {
     };
   }
 
+  toBuffer(dataObject: any): Promise<Buffer> {
+    return dataObject.xlsx.writeBuffer();
+  }
+
   async generate(data: any): Promise<Buffer> {
 
     const wb = new Workbook();
     const tmplFile = this.getTemplatePathFile();
-    const saveFile = this.getOutputPathFile();
+    // const saveFile = this.getOutputPathFile();
 
     try {
       await wb.xlsx.readFile(tmplFile);
@@ -65,19 +66,17 @@ export class ExcelResultReport extends ResultReport {
         r += 2;
       }
 
-      wb.xlsx.writeFile(saveFile);
+      // wb.xlsx.writeFile(saveFile);
 
       let buffer: Buffer;
-      await wb.xlsx.write(unstream({}, d => {
-        buffer = d;
-        // tslint:disable-next-line:no-console
-        console.log('buffer 1', buffer);
-        return buffer;
-      }));
+      try {
+        buffer = await this.toBuffer(wb);
+      } catch (e) {
+          // tslint:disable-next-line:no-console
+          console.log('buffer error', e);
+      }
 
-      // tslint:disable-next-line:no-console
-      console.log('buffer 2', buffer);
-
+      return buffer;
     } catch (e) {
       return e;
     }
