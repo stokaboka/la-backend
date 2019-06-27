@@ -34,6 +34,7 @@ export class ConfigService {
       SERVER_HOST: Joi.string().default('0.0.0.0'),
       TEMPLATE_PATH: Joi.string().default(''),
       TEMPLATE_RESULT_EXCEL_FILE: Joi.string().default(''),
+      IMAGES_PATH: Joi.string().default(''),
       // API_AUTH_ENABLED: Joi.boolean().required(),
     });
 
@@ -61,5 +62,9 @@ export class ConfigService {
 
   get templateResultExcelFile(): string {
     return String(this.envConfig.TEMPLATE_RESULT_EXCEL_FILE);
+  }
+
+  get imagesPath(): string {
+    return String(this.envConfig.IMAGES_PATH);
   }
 }

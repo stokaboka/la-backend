@@ -22,7 +22,10 @@ export class ResultReport {
   tmplPath: string;
   tmplFile: string;
 
+  config: ConfigService;
+
   constructor(format: string, config: ConfigService) {
+    this.config = config;
     this.tmplPath = config.templatePath;
   }
 
