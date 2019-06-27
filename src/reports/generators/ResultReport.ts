@@ -6,12 +6,20 @@ import { ConfigService } from '../../config/config.service';
 
 export class ResultReport {
 
+  static headers: any = {
+    XLSX: {
+      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'Accept': 'application/vnd.ms-excel',
+      'Content-Disposition': 'attachment',
+    },
+    PDF: {},
+  };
+
   tmplPath: string;
   tmplFile: string;
 
   constructor(format: string, config: ConfigService) {
     this.tmplPath = config.templatePath;
-    this.tmplFile = config.templateResultExcelFile;
   }
 
   getTemplatePathFile(): string {

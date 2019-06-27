@@ -18,21 +18,17 @@ export class ReportsController {
     return this.reportsService.save(data);
   }
 
-  @Get('xlsx/user/:user/test/:test/attempt/:attempt')
+  @Get('user/:user/test/:test/attempt/:attempt/format/:format')
   @UseGuards(new JwtAuthGuard())
   async reportFile(
     @Param() params: any,
     @Res() res: Response,
   ) {
-    const buffer = await this.reportsService.reportFile(params, 'xlsx');
+    const buffer = await this.reportsService.reportFile(params);
     const stream = ReportsService.getReadableStream(buffer);
+    const headers = ReportsService.getHeadersByFormat(params, buffer.length);
 
-    res.set({
-      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Length': buffer.length,
-      'Accept': 'application/vnd.ms-excel',
-      'Content-Disposition': 'attachment',
-    });
+    res.set(headers);
 
     stream.pipe(res);
   }

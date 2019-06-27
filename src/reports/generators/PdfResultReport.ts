@@ -8,6 +8,7 @@ import { ConfigService } from '../../config/config.service';
 export class PdfResultReport extends ResultReport {
   constructor(config: ConfigService) {
     super('pdf', config);
+    this.tmplFile = config.templateResultExcelFile;
   }
 
   async generate(data: any): Promise<Buffer> {

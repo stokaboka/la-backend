@@ -9,6 +9,7 @@ import { ConfigService } from '../../config/config.service';
 export class ExcelResultReport extends ResultReport {
   constructor(config: ConfigService) {
     super('xlsx', config);
+    this.tmplFile = config.templateResultExcelFile;
   }
 
   fillCellByResultIndex(ws, index, row) {
@@ -27,7 +28,7 @@ export class ExcelResultReport extends ResultReport {
     return dataObject.xlsx.writeBuffer();
   }
 
-  async generate(data: any): Promise<Buffer> {
+  async createFromTemplate(data: any): Promise<Workbook> {
     const wb = new Workbook();
     const tmplFile = this.getTemplatePathFile();
     try {
@@ -68,13 +69,19 @@ export class ExcelResultReport extends ResultReport {
         r += 2;
       }
 
+      return wb;
       // wb.xlsx.writeFile(saveFile);
+    } catch (e) {
+      throw e;
+    }
+  }
 
-      const buffer = await this.toPromiseBuffer(wb);
-      return buffer;
+  async generate(data: any): Promise<Buffer> {
+    try {
+      const wb = await this.createFromTemplate(data);
+      return await this.toPromiseBuffer(wb);
     } catch (e) {
       return Promise.resolve(new Buffer(e));
     }
-    return Promise.resolve(new Buffer('nothing'));
   }
 }

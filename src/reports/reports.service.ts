@@ -31,8 +31,8 @@ export class ReportsService {
     }
   }
 
-  async reportFile(params: any, format: string): Promise<Buffer> {
-    const { user: idUser, attempt, test } = params;
+  async reportFile(params: any): Promise<Buffer> {
+    const { user: idUser, attempt, test, format } = params;
     try {
       const resultReport: ResultReport = ReportFactory.create(
         format,
@@ -44,23 +44,21 @@ export class ReportsService {
       });
 
       return await resultReport.generate(report.data);
-      // const resultBuffer: Promise<Buffer> = await resultReport.generate(report.data);
-      // return resultBuffer;
-
-      // switch (format.toUpperCase()) {
-      //   case 'XLSX':
-      //     resultReport = new ExcelResultReport(this.config);
-      //     break;
-      //   case 'PDF' :
-      //     resultReport = new PdfResultReport(this.config);
-      // }
-      // if (resultReport) {
-      //   resultBuffer = await resultReport.generate(report.data);
-      //   // return resultBuffer;
-      // }
     } catch (e) {
       return ResultReport.toBuffer(e.message);
     }
+  }
+
+  static getHeadersByFormat(params: any, length: number): any {
+    const { format } = params;
+    const upperCaseFormat = format.toUpperCase();
+    if (ResultReport.headers[upperCaseFormat] !== undefined) {
+      return {
+        'Content-Length': length,
+        ...ResultReport.headers[upperCaseFormat],
+      };
+    }
+    return {};
   }
 
   static getReadableStream(buffer: Buffer): Readable {
