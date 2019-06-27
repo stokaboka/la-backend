@@ -11,7 +11,21 @@ export class PdfResultReport extends ResultReport {
     this.tmplFile = config.templateResultExcelFile;
   }
 
-  async generate(data: any): Promise<Buffer> {
-    return ResultReport.toBuffer('');
+  toPromiseBuffer(dataObject: any): Promise<Buffer> {
+    return Promise.resolve(new Buffer(''));
   }
+
+  async createFromTemplate(data: any): Promise<any> {
+    return Promise.resolve({});
+  }
+
+  async generate(data: any): Promise<Buffer> {
+    try {
+      const wb = await this.createFromTemplate(data);
+      return await this.toPromiseBuffer(wb);
+    } catch (e) {
+      return Promise.resolve(new Buffer(e));
+    }
+  }
+
 }

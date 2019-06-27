@@ -12,7 +12,11 @@ export class ResultReport {
       'Accept': 'application/vnd.ms-excel',
       'Content-Disposition': 'attachment',
     },
-    PDF: {},
+    PDF: {
+      'Content-Type': 'application/pdf',
+      'Accept': 'application/pdf',
+      'Content-Disposition': 'attachment',
+    },
   };
 
   tmplPath: string;
