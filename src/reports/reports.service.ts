@@ -8,13 +8,12 @@ import { Repository } from 'typeorm';
 import { ReportsDto } from './dto/reports.dto';
 import { Reports } from './reports.entity';
 import { ResultReport } from './generators/ResultReport';
-import { ExcelResultReport } from './generators/ExcelResultReport';
 import { Readable } from 'stream';
 import { ConfigService } from '../config/config.service';
+import { ReportFactory } from './generators/ReportFactory';
 
 @Injectable()
 export class ReportsService {
-
   constructor(
     @InjectRepository(Reports)
     private readonly repository: Repository<Reports>,
@@ -34,25 +33,33 @@ export class ReportsService {
 
   async reportFile(params: any, format: string): Promise<Buffer> {
     const { user: idUser, attempt, test } = params;
-    let resultReport: ResultReport;
     try {
+      const resultReport: ResultReport = ReportFactory.create(
+        format,
+        this.config,
+      );
+
       const report = await this.repository.findOne({
         where: { idUser, attempt, test },
       });
 
-      switch (format.toUpperCase()) {
-        case 'XLSX':
-          resultReport = new ExcelResultReport(this.config);
-          break;
-      }
+      return await resultReport.generate(report.data);
+      // const resultBuffer: Promise<Buffer> = await resultReport.generate(report.data);
+      // return resultBuffer;
 
-      if (resultReport) {
-        const resultBuffer = await resultReport.generate(report.data);
-        return resultBuffer;
-      }
-      return new Buffer('unsupported format');
-    } catch (error) {
-      return new Buffer(error.message);
+      // switch (format.toUpperCase()) {
+      //   case 'XLSX':
+      //     resultReport = new ExcelResultReport(this.config);
+      //     break;
+      //   case 'PDF' :
+      //     resultReport = new PdfResultReport(this.config);
+      // }
+      // if (resultReport) {
+      //   resultBuffer = await resultReport.generate(report.data);
+      //   // return resultBuffer;
+      // }
+    } catch (e) {
+      return ResultReport.toBuffer(e.message);
     }
   }
 
@@ -64,5 +71,4 @@ export class ReportsService {
 
     return stream;
   }
-
 }

@@ -18,12 +18,12 @@ export class ResultReport {
     return `${this.tmplPath}/${this.tmplFile}`;
   }
 
-  async generate(data: any): Promise<Buffer> {
-    return new Buffer('ResultReport.generate: implement me');
+  generate(data: any): Promise<Buffer> {
+    return Promise.reject(new Buffer('ResultReport.generate: implement me'));
   }
 
-  toBuffer(dataObject: any): Promise<Buffer> {
-    return Promise.reject(new Buffer('ResultReport.toBuffer: implement me'));
+  static toBuffer(dataObject: any): Promise<Buffer> {
+    return Promise.resolve(new Buffer(dataObject));
   }
 
 }

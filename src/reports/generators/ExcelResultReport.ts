@@ -7,7 +7,6 @@ import { ResultReport } from './ResultReport';
 import { ConfigService } from '../../config/config.service';
 
 export class ExcelResultReport extends ResultReport {
-
   constructor(config: ConfigService) {
     super('xlsx', config);
   }
@@ -20,20 +19,17 @@ export class ExcelResultReport extends ResultReport {
     cell.fill = {
       type: 'pattern',
       pattern: 'solid',
-      fgColor: {argb: 'FFFF0000'},
+      fgColor: { argb: 'FFFF0000' },
     };
   }
 
-  toBuffer(dataObject: any): Promise<Buffer> {
+  toPromiseBuffer(dataObject: any): Promise<Buffer> {
     return dataObject.xlsx.writeBuffer();
   }
 
   async generate(data: any): Promise<Buffer> {
-
     const wb = new Workbook();
     const tmplFile = this.getTemplatePathFile();
-    // const saveFile = this.getOutputPathFile();
-
     try {
       await wb.xlsx.readFile(tmplFile);
       const ws = wb.getWorksheet(1);
@@ -55,8 +51,13 @@ export class ExcelResultReport extends ResultReport {
       this.fillCellByResultIndex(ws, data.results.speakingRate, 20);
       this.fillCellByResultIndex(ws, data.results.usingOfCliche, 21);
       this.fillCellByResultIndex(ws, data.results.interactivityOfSpeech, 22);
-      this.fillCellByResultIndex(ws, data.results.usingOfTheRussianLanguageInSpeech, 23);
-      ws.getCell('D24').value = data.results.phoneticAndPronunciationSelect_value;
+      this.fillCellByResultIndex(
+        ws,
+        data.results.usingOfTheRussianLanguageInSpeech,
+        23,
+      );
+      ws.getCell('D24').value =
+        data.results.phoneticAndPronunciationSelect_value;
       this.fillCellByResultIndex(ws, data.results.partTwoResult, 25);
       ws.getCell('D26').value = data.results.partTwoResultClear_value;
 
@@ -69,18 +70,11 @@ export class ExcelResultReport extends ResultReport {
 
       // wb.xlsx.writeFile(saveFile);
 
-      let buffer: Buffer;
-      try {
-        buffer = await this.toBuffer(wb);
-      } catch (e) {
-          // tslint:disable-next-line:no-console
-          console.log('buffer error', e);
-      }
-
+      const buffer = await this.toPromiseBuffer(wb);
       return buffer;
     } catch (e) {
-      return e;
+      return Promise.resolve(new Buffer(e));
     }
-    return new Buffer('nothing');
+    return Promise.resolve(new Buffer('nothing'));
   }
 }
