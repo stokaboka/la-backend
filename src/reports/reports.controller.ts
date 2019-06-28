@@ -24,7 +24,7 @@ export class ReportsController {
     @Param() params: any,
     @Res() res: Response,
   ) {
-    const buffer = await this.reportsService.reportFile(params);
+    const buffer = await this.reportsService.reportFile('result', params);
     const stream = ReportsService.getReadableStream(buffer);
     const headers = ReportsService.getHeadersByFormat(params, buffer.length);
 

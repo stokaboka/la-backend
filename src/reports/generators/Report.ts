@@ -4,7 +4,7 @@
 
 import { ConfigService } from '../../config/config.service';
 
-export class ResultReport {
+export class Report {
 
   static headers: any = {
     XLSX: {
@@ -19,22 +19,14 @@ export class ResultReport {
     },
   };
 
-  tmplPath: string;
-  tmplFile: string;
-
   config: ConfigService;
 
-  constructor(format: string, config: ConfigService) {
+  constructor(config: ConfigService) {
     this.config = config;
-    this.tmplPath = config.templatePath;
-  }
-
-  getTemplatePathFile(): string {
-    return `${this.tmplPath}/${this.tmplFile}`;
   }
 
   generate(data: any): Promise<Buffer> {
-    return Promise.reject(new Buffer('ResultReport.generate: implement me'));
+    return Promise.reject(new Buffer('Report.generate: implement me'));
   }
 
   static toBuffer(dataObject: any): Promise<Buffer> {

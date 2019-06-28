@@ -3,12 +3,12 @@
  */
 
 import { Workbook } from 'exceljs';
-import { ResultReport } from '../ResultReport';
 import { ConfigService } from '../../../config/config.service';
+import { ExcelReport } from './ExcelReport';
 
-export class ExcelResultReport extends ResultReport {
+export class ExcelResultReport extends ExcelReport {
   constructor(config: ConfigService) {
-    super('xlsx', config);
+    super(config);
     this.tmplFile = config.templateResultExcelFile;
   }
 

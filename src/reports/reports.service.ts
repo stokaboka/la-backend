@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReportsDto } from './dto/reports.dto';
 import { Reports } from './reports.entity';
-import { ResultReport } from './generators/ResultReport';
+import { Report } from './generators/Report';
 import { Readable } from 'stream';
 import { ConfigService } from '../config/config.service';
 import { ReportFactory } from './generators/ReportFactory';
@@ -31,31 +31,32 @@ export class ReportsService {
     }
   }
 
-  async reportFile(params: any): Promise<Buffer> {
+  async reportFile(report: string, params: any): Promise<Buffer> {
     const { user: idUser, attempt, test, format } = params;
     try {
-      const resultReport: ResultReport = ReportFactory.create(
+      const reportGenerator: Report = ReportFactory.create(
         format,
+        report,
         this.config,
       );
 
-      const report = await this.repository.findOne({
+      const reportData = await this.repository.findOne({
         where: { idUser, attempt, test },
       });
 
-      return await resultReport.generate(report.data);
+      return await reportGenerator.generate(reportData.data);
     } catch (e) {
-      return ResultReport.toBuffer(e.message);
+      return Report.toBuffer(e.message);
     }
   }
 
   static getHeadersByFormat(params: any, length: number): any {
     const { format } = params;
     const upperCaseFormat = format.toUpperCase();
-    if (ResultReport.headers[upperCaseFormat] !== undefined) {
+    if (Report.headers[upperCaseFormat] !== undefined) {
       return {
         'Content-Length': length,
-        ...ResultReport.headers[upperCaseFormat],
+        ...Report.headers[upperCaseFormat],
       };
     }
     return {};

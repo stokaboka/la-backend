@@ -2,40 +2,22 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-import { ResultReport } from '../ResultReport';
 import { ConfigService } from '../../../config/config.service';
 
-import * as pdfMake from 'pdfmake/build/pdfmake.js';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+export class PdfDocumentDefinitionResult {
 
-export class PdfResultReport extends ResultReport {
+  config: ConfigService;
   constructor(config: ConfigService) {
-    super('pdf', config);
-    this.tmplFile = config.templateResultExcelFile;
+    this.config = config;
   }
 
-  toPromiseBuffer(buffer: Buffer): Promise<Buffer> {
-    return Promise.resolve(buffer);
+  getDocumentDefinition(data: any): any {
+    const content = this.getContent(data);
+    return this.generateDocumentDefinition(content);
   }
 
-  getContentDescriptionTable(descriptions: any): any {
-    const out = [];
-    for (const d of descriptions) {
-      out.push([
-        { text: d.category, colSpan: 2 },
-        { text: ''},
-      ]);
-      out.push([
-        { text: d.level },
-        { text: d.description},
-      ]);
-    }
-    return out;
-  }
-
-  async createFromTemplate(data: any): Promise<any> {
-    const pdfContent: any = {
+  protected getContent(data: any): any {
+    const out: any = {
       title: 'РЕЗУЛЬТАТЫ Language Assessment',
       logoImage: `${this.config.imagesPath}/svs_logo.png`,
       header: {
@@ -53,14 +35,19 @@ export class PdfResultReport extends ResultReport {
         descriptions: data.results.descriptions,
       },
     };
-    const documentDefinition: any = {
+
+    return out;
+  }
+
+  private generateDocumentDefinition(content: any): any {
+    const out: any = {
       pageSize: 'A4',
       pageOrientation: 'landscape',
       pageMargins: [40, 40, 40, 40],
       content: [
         {
           style: 'title',
-          text: pdfContent.title,
+          text: content.title,
         },
         {
           table: {
@@ -68,13 +55,13 @@ export class PdfResultReport extends ResultReport {
             body: [
               [
                 'Студент:',
-                `${pdfContent.header.student}`,
-                { rowSpan: 5, text: pdfContent.logoImage },
+                `${content.header.student}`,
+                { rowSpan: 5, text: content.logoImage },
               ],
-              ['Менеджер:', `${pdfContent.header.manager}`],
-              ['Тренер:', `${pdfContent.header.trainer}`],
-              ['Дата:', `${pdfContent.header.date}`],
-              ['Итоговый уровень:', `${pdfContent.header.finalResult}`],
+              ['Менеджер:', `${content.header.manager}`],
+              ['Тренер:', `${content.header.trainer}`],
+              ['Дата:', `${content.header.date}`],
+              ['Итоговый уровень:', `${content.header.finalResult}`],
             ],
           },
           layout: 'noBorders',
@@ -197,7 +184,7 @@ export class PdfResultReport extends ResultReport {
               ],
               [
                 {text: 'Сумма набранных баллов по самостоятельной части тестирования (отражается балл и соответствующий уровень):' },
-                {text: `${pdfContent.results.levelOneValue}`, colSpan: 11, alignment: 'center'}, '', '', '', '', '', '', '', '', '', '',
+                {text: `${content.results.levelOneValue}`, colSpan: 11, alignment: 'center'}, '', '', '', '', '', '', '', '', '', '',
               ],
               [{text: 'ЧАСТЬ II: УСТНАЯ', colSpan: 12, alignment: 'center'}, '', '', '', '', '', '', '', '', '', '', '' ],
               ['Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands',
@@ -280,7 +267,7 @@ export class PdfResultReport extends ResultReport {
               ],
               [
                 {text: 'Комментарий к фонетике и произношению / Phonetic and pronunciation' },
-                {text: `${pdfContent.results.phoneticAndPronunciationSelectValue}`, colSpan: 11, alignment: 'center'},
+                {text: `${content.results.phoneticAndPronunciationSelectValue}`, colSpan: 11, alignment: 'center'},
                 '', '', '', '', '', '', '', '', '', '',
               ],
               ['Баллы для автоматического определения уровня (по устной части)',
@@ -298,7 +285,7 @@ export class PdfResultReport extends ResultReport {
               ],
               [
                 {text: 'Сумма набранных баллов по устной части тестирования (отражается балл и соответствующий уровень):' },
-                {text: `${pdfContent.results.partTwoResultClearValue}`, colSpan: 11, alignment: 'center'}, '', '', '', '', '', '', '', '', '', '',
+                {text: `${content.results.partTwoResultClearValue}`, colSpan: 11, alignment: 'center'}, '', '', '', '', '', '', '', '', '', '',
               ],
             ],
           },
@@ -306,7 +293,7 @@ export class PdfResultReport extends ResultReport {
         {
           table: {
             widths: [50, 'auto'],
-            body: this.getContentDescriptionTable(pdfContent.results.descriptions),
+            body: this.getContentDescriptionTable(content.results.descriptions),
           },
         },
       ],
@@ -326,21 +313,21 @@ export class PdfResultReport extends ResultReport {
       },
     };
 
-    return new Promise<any>((resolve, reject) => {
-      pdfMake
-        .createPdf(documentDefinition)
-        .getBuffer((results: any, pages: any) => {
-          resolve(results);
-        });
-    });
+    return out;
   }
 
-  async generate(data: any): Promise<Buffer> {
-    try {
-      const pdfBuffer = await this.createFromTemplate(data);
-      return this.toPromiseBuffer(pdfBuffer);
-    } catch (e) {
-      return this.toPromiseBuffer(new Buffer(e));
+  private getContentDescriptionTable(descriptions: any): any {
+    const out = [];
+    for (const d of descriptions) {
+      out.push([
+        { text: d.category, colSpan: 2 },
+        { text: ''},
+      ]);
+      out.push([
+        { text: d.level },
+        { text: d.description},
+      ]);
     }
+    return out;
   }
 }
