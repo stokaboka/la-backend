@@ -3,8 +3,8 @@
  */
 
 import { Workbook } from 'exceljs';
-import { ResultReport } from './ResultReport';
-import { ConfigService } from '../../config/config.service';
+import { ResultReport } from '../ResultReport';
+import { ConfigService } from '../../../config/config.service';
 
 export class ExcelResultReport extends ResultReport {
   constructor(config: ConfigService) {

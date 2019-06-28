@@ -3,8 +3,8 @@
  */
 
 import { ConfigService } from '../../config/config.service';
-import { ExcelResultReport } from './ExcelResultReport';
-import { PdfResultReport } from './PdfResultReport';
+import { ExcelResultReport } from './excel/ExcelResultReport';
+import { PdfResultReport } from './pdf/PdfResultReport';
 
 export class ReportFactory {
   static create(format: string, config: ConfigService) {

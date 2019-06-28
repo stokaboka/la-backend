@@ -2,8 +2,8 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-import { ResultReport } from './ResultReport';
-import { ConfigService } from '../../config/config.service';
+import { ResultReport } from '../ResultReport';
+import { ConfigService } from '../../../config/config.service';
 
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
