@@ -418,7 +418,7 @@ export class PdfDocumentDefinitionResult {
     const out = [];
     for (const d of descriptions) {
       out.push([
-        { text: '222 ' + d.category, colSpan: 2, style: this.getCategoryStyle(d) },
+        { text: d.category, colSpan: 2, style: this.getCategoryStyle(d) },
         { text: ''},
       ]);
       out.push([
