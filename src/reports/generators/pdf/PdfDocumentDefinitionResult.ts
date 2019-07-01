@@ -40,7 +40,7 @@ export class PdfDocumentDefinitionResult {
       title: 'РЕЗУЛЬТАТЫ Language Assessment',
       logoImage: Base64.imageToDataUri(`${this.config.imagesPath}/${img}`),
       logoImageSize: [132, 99],
-      finalResult: '',
+      finalResult: `${data.results.finalLevelEurope} - ${data.results.finalLevelSVS}`,
       date: DateString.dateToString(data.date, 'DD.MM.YYYY'),
     };
 

@@ -16,7 +16,6 @@ export class PdfReportResult  extends PdfReport {
       const documentDefinitionResult: PdfDocumentDefinitionResult = new PdfDocumentDefinitionResult(this.config);
       const documentDefinition: any = documentDefinitionResult.getDocumentDefinition(data);
       return await this.createPdfBuffer(documentDefinition);
-      // return await this.toPromiseBuffer(buffer);
     } catch (e) {
       return Promise.resolve(new Buffer(e));
     }
