@@ -5,6 +5,7 @@
 import { Workbook } from 'exceljs';
 import { ConfigService } from '../../../config/config.service';
 import { ExcelReport } from './ExcelReport';
+import { DateString } from '../../../utils/date';
 
 export class ExcelResultReport extends ExcelReport {
   constructor(config: ConfigService) {
@@ -38,7 +39,7 @@ export class ExcelResultReport extends ExcelReport {
       ws.getCell('B2').value = `${data.student}`;
       ws.getCell('B3').value = `${data.manager}`;
       ws.getCell('B4').value = `${data.trainer}`;
-      ws.getCell('B5').value = data.date;
+      ws.getCell('B5').value = DateString.dateToString(data.date, 'DD.MM.YYYY');
 
       this.fillCellByResultIndex(ws, data.results.finalLevel, 10);
       this.fillCellByResultIndex(ws, data.results.vocabularyLevel, 12);

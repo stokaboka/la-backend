@@ -29,9 +29,16 @@ async function bootstrap() {
   //   prefix: '/public/',
   // });
 
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  // app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(app.get('ConfigService').publicPath);
 
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+    allowedHeaders: 'Content-Type,Authorization,Accept',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // preflightContinue: false,
+    // optionsSuccessStatus: 204,
+  });
 
   const port = app.get('ConfigService').port || 3000;
   const host = app.get('ConfigService').host || '0.0.0.0';

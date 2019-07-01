@@ -32,6 +32,8 @@ export class ConfigService {
         .default('development'),
       SERVER_PORT: Joi.number().default(4444),
       SERVER_HOST: Joi.string().default('0.0.0.0'),
+      PUBLIC_PATH: Joi.string().default(''),
+      CLIENT_CONFIG: Joi.string().default(''),
       TEMPLATE_PATH: Joi.string().default(''),
       TEMPLATE_RESULT_EXCEL_FILE: Joi.string().default(''),
       IMAGES_PATH: Joi.string().default(''),
@@ -54,6 +56,14 @@ export class ConfigService {
 
   get host(): string {
     return String(this.envConfig.SERVER_HOST);
+  }
+
+  get publicPath(): string {
+    return String(this.envConfig.PUBLIC_PATH);
+  }
+
+  get clientConfig(): string {
+    return String(this.envConfig.CLIENT_CONFIG);
   }
 
   get templatePath(): string {
