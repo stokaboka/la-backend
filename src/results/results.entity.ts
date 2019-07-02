@@ -54,7 +54,7 @@ export class Results {
 
   @Column({
     name: 'level',
-    type: 'int',
+    type: 'float',
     default: 0,
     nullable: true,
   })
