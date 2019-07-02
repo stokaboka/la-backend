@@ -11,7 +11,7 @@ import { PdfReportResult } from './pdf/PdfReportResult';
 export class ReportFactory {
   static create(format: string, report: string, config: ConfigService) {
     switch (format.toUpperCase()) {
-      case 'XLSX':
+      case 'EXCEL':
         return ReportFactory.createExcelReport(report, config);
       case 'PDF':
         return ReportFactory.createPdfReport(report, config);

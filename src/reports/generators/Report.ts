@@ -7,7 +7,7 @@ import { ConfigService } from '../../config/config.service';
 export class Report {
 
   static headers: any = {
-    XLSX: {
+    EXCEL: {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Accept': 'application/vnd.ms-excel',
       'Content-Disposition': 'attachment',
