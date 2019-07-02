@@ -68,10 +68,11 @@ export class Results {
   public answers: string;
 
   @Column({
-    name: 'extra',
-    type: 'text',
+    name: 'result',
+    type: 'int',
+    default: 0,
     nullable: true,
   })
-  public extra: string;
+  public result: string;
 
 }
