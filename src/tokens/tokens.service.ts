@@ -32,8 +32,8 @@ export class TokensService {
     }
   }
 
-  async findTokenByUserId(idUser: number): Promise<Tokens[]> {
-    return await this.repository.find({
+  async findTokenByUserId(idUser: number): Promise<Tokens> {
+    return await this.repository.findOne({
       select: ['token'],
       where: { idUser },
     });

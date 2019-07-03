@@ -10,4 +10,7 @@ export class ReportsDto {
   readonly test: number;
   readonly type: string;
   readonly data: object;
+  readonly level: number;
+  readonly levelCEF: string;
+  readonly levelSVS: string;
 }

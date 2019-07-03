@@ -12,5 +12,5 @@ export class ResultDto {
   readonly phase: number;
   readonly level: number;
   readonly answers: string;
-  readonly extra: string;
+  readonly result: string;
 }

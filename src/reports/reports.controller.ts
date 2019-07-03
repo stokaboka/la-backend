@@ -18,6 +18,12 @@ export class ReportsController {
     return this.reportsService.save(data);
   }
 
+  @Get('user/:user/test/:test/attempt/:attempt')
+  @UseGuards(new JwtAuthGuard())
+  async findOne(@Param() params: any): Promise<any> {
+    return this.reportsService.findOne(params);
+  }
+
   @Get('user/:user/test/:test/attempt/:attempt/format/:format')
   @UseGuards(new JwtAuthGuard())
   async reportFile(

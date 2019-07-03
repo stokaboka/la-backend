@@ -49,4 +49,26 @@ export class Reports {
     nullable: true,
   })
   public data: object;
+
+  @Column({
+    name: 'level',
+    type: 'float',
+    default: 0,
+    nullable: true,
+  })
+  public level: number;
+
+  @Column({
+    name: 'levelCEF',
+    type: 'varchar',
+    length: 255,
+  })
+  public levelCEF: string;
+
+  @Column({
+    name: 'levelSVS',
+    type: 'varchar',
+    length: 255,
+  })
+  public levelSVS: string;
 }
