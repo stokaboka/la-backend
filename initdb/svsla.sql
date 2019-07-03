@@ -45,6 +45,38 @@ INSERT INTO `Descriptions` VALUES (1,'Отсутствие языковых на
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Levels`
+--
+
+DROP TABLE IF EXISTS `Levels`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Levels` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) NOT NULL,
+  `attempt` int(11) NOT NULL DEFAULT '1',
+  `dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `test` int(11) NOT NULL DEFAULT '1',
+  `level` float DEFAULT '0',
+  `levelCEF` varchar(255) NOT NULL,
+  `levelSVS` varchar(255) NOT NULL,
+  `manager` varchar(255) NOT NULL,
+  `trainer` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Levels`
+--
+
+LOCK TABLES `Levels` WRITE;
+/*!40000 ALTER TABLE `Levels` DISABLE KEYS */;
+INSERT INTO `Levels` VALUES (25,1,1,'2019-07-03 14:20:36',1,64.1,'B1','Intermediate Confident','Administrator - -','Administrator - -'),(26,1,1,'2019-07-03 14:20:36',1,64.1,'B1','Intermediate Confident','Administrator - -','Administrator - -');
+/*!40000 ALTER TABLE `Levels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Questions`
 --
 
@@ -94,7 +126,7 @@ CREATE TABLE `Reports` (
   `dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `test` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +135,7 @@ CREATE TABLE `Reports` (
 
 LOCK TABLES `Reports` WRITE;
 /*!40000 ALTER TABLE `Reports` DISABLE KEYS */;
-INSERT INTO `Reports` VALUES (187,'result','{\"date\": \"2019-07-02T10:49:14.918Z\", \"manager\": \"Administrator - -\", \"results\": {\"levelOne\": 6, \"finalLevel\": 6, \"descriptions\": [{\"label\": \"Лексика / Vocabulary\", \"level\": 5, \"target\": \"vocabularyLevel\", \"category\": \"Лексика / Vocabulary\", \"description\": \"\\\"800-1100 единиц. Уверенная бытовая и абстрактная лексика. Ограниченная синонимичность. В словарном запасе помимо отдельных слов появляются клишированные фразы бизнес английского.\\n\\\"\"}, {\"label\": \"Грамматика / Grammar\", \"level\": 6, \"target\": \"grammarLevel\", \"category\": \"Грамматика / Grammar\", \"description\": \"В речи появляются такие конструкции как complex object, used to, сложносочиненые предложения. Пассивный залог используется в более сложных предложениях (it used to be done, i want it to be done), а так же в изученных временных категориях (it has been done). Есть теоретическое понятие о косвенных вопросах.\"}, {\"label\": \"Восприятие на слух / Listening\", \"level\": 7, \"target\": \"listeningLevel\", \"category\": \"Восприятие на слух / Listening\", \"description\": \"Понятны не адаптированные высказывания носителей языка любой продолжительности, понимание 50% деталей связанных с использованием идиом, фразовых глаголов и стилистических особенностей.\"}, {\"label\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"level\": 7, \"category\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"description\": \"Вы владеете лексико-грамматическими компетентностями на уровне В1 по общеевропейской шкале. Это означает, что Вы можете читать и понимать тексты повседневного и профессионального содержания. Вы также можете понимать личные письма, описывающие события, чувства и желания автора. Вы можете поддержать беседу на английском языке по теме, близкой Вам лично. Вы успешно принимаете участие в дискуссии и можете описать свои впечатления. Вы понимаете основное содержание речи носителей языка в ситуациях реального общения и теле-радио трансляцию, если тематика попадает в сферу Ваших личных интересов, а речь говорящего относительно медленная и внятная. В целом, Ваш уровень языка достаточен для общения в большом количестве повседневных ситуаций, но Вы все еще испытываете лексико-грамматические и компетентностные трудности, связанные с недостатком постоянной интенсивной языковой практики.\"}, {\"label\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"level\": 6, \"category\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"description\": \"Достаточно уверенная речь, нет боязни сделать ошибку, способность к длительным высказываниям без потери качества говорения. Адекватная самооценка, нет занижения собственных коммуникативных способностей.\"}, {\"label\": \"Скорость речи / Speaking rate\", \"level\": 8, \"category\": \"Скорость речи / Speaking rate\", \"description\": \"Скорость речи естественная. Сформирован навык убыстрения и замедления речи в зависимости от языковой ситуации.\"}, {\"label\": \"Языковые клише и стандартные фразы / Using of cliché\", \"level\": 5, \"category\": \"Языковые клише и стандартные фразы / Using of cliché\", \"description\": \"В речи существует отличие между формальными и неформальными фразами в разных ситуациях. На базовом уровне имеется навык ведения small talk. В речи появляются связующие слова, отражающие последовательность событий и переход от одной части высказывания к другой. Есть умение пригласить, ответить на приглашение, предложить альтернативу и совершить выбор.\"}, {\"label\": \"Характер интерактивности речи / Interactivity of speech\", \"level\": 7, \"category\": \"Характер интерактивности речи / Interactivity of speech\", \"description\": \"Владение инициативой в разговоре, при этом собеседник чувствует себя комфортно.\"}, {\"label\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"level\": 7, \"category\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"description\": \"Полное отсутствие русских слов в речи.\\n\"}], \"grammarLevel\": 6, \"speakingRate\": 8, \"finalLevelSVS\": \"Intermediate Entry\", \"partTwoResult\": 6, \"usingOfCliche\": 5, \"levelOne_value\": 18, \"listeningLevel\": 8, \"vocabularyLevel\": 4, \"finalLevelEurope\": \"B1\", \"confidenceInSpeaking\": 6, \"partTwoResultAnswers\": 6, \"interactivityOfSpeech\": 7, \"partTwoResultClear_value\": 40, \"usingOfTheRussianLanguageInSpeech\": 7, \"phoneticAndPronunciationSelect_value\": \"необходима работа над интонацией\"}, \"student\": \"Administrator - -\", \"trainer\": \"Administrator - -\"}',1,1,'2019-07-02 10:49:14',1);
+INSERT INTO `Reports` VALUES (192,'result','{\"date\": \"2019-07-03T13:18:15.341Z\", \"manager\": \"Administrator - -\", \"results\": {\"levelOne\": 5, \"finalLevel\": 57.7, \"descriptions\": [{\"label\": \"Лексика / Vocabulary\", \"level\": 4, \"target\": \"vocabularyLevel\", \"category\": \"Лексика / Vocabulary\", \"description\": \"\\\"500-800 единиц. Бытовая и ограниченная абстрактная лексика. Навык синонимичности на стадии формирования. Базовые слова бизнес английского. Способность к чтению и написанию новых слов.\\n\\\"\"}, {\"label\": \"Грамматика / Grammar\", \"level\": 5, \"target\": \"grammarLevel\", \"category\": \"Грамматика / Grammar\", \"description\": \"\\\"Объем используемых временных форм глагола следующий: (формы настоящего времени: present simple, present perfect, present continuous, present perfect continuous. Формы прошедшего времени: past simple, past perfect, past continuous. Формы будущего времени: future simple). Расширено представление о сравнительной степени (much more, as).Первый и второй тип сослагательных предложений. Пассивный залог в простых предложениях. Вопросы с хвостиком «не так ли».\\n\\\"\"}, {\"label\": \"Восприятие на слух / Listening\", \"level\": 6, \"target\": \"listeningLevel\", \"category\": \"Восприятие на слух / Listening\", \"description\": \"Понятны не адаптированные высказывания носителей языка любой продолжительности, без понимания деталей связанных с использованием идиом, фразовых глаголов и стилистических особенностей.\"}, {\"label\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"level\": 11.9, \"category\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"description\": \"Вы владеете лексико-грамматическими компетентностями на уровне С1 по общеевропейской шкале. Это означает, что Вы можете понимать сложные объемные (разножанровые) тексты на английском языке (в том числе и на профессиональную тематику): статьи, инструкции, доклады и т.д. Вы можете аргументировано и убедительно излагать свою точку зрения во время переговоров. Вы хорошо понимаете речь носителей языка на слух, даже если она недостаточно структурирована и/или изобилует сленговыми выражениями и идиомами. (С1) В целом, уровень владения языком достаточна для свободного общения, но в ряде ситуаций Вы все еще можете испытывать компетентностные трудности, связанные с недостатком постоянной языковой практики.\"}, {\"label\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"level\": 5, \"category\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"description\": \"Средняя уверенность при говорении на языке, боязнь сделать ошибку, навык говорения недостаточен, при говорении на языке быстро возникает усталость, появляются ошибки, речь путается.\"}, {\"label\": \"Скорость речи / Speaking rate\", \"level\": 6, \"category\": \"Скорость речи / Speaking rate\", \"description\": \"Скорость речи близка к естественной. Сформирован навык убыстрения и замедления речи в зависимости от языковой ситуации.\"}, {\"label\": \"Языковые клише и стандартные фразы / Using of cliché\", \"level\": 7, \"category\": \"Языковые клише и стандартные фразы / Using of cliché\", \"description\": \"Знание клише и фраз позволяют стилистически окрашивать речь. При высказывании любой продолжительности сохраняется структура видимая собеседнику. Собеседник после окончания разговора чувствует удовлетворенность от общения.\"}, {\"label\": \"Характер интерактивности речи / Interactivity of speech\", \"level\": 8, \"category\": \"Характер интерактивности речи / Interactivity of speech\", \"description\": \"Владение инициативой в разговоре, при этом собеседник чувствует себя комфортно.\"}, {\"label\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"level\": 9, \"category\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"description\": \"Полное отсутствие русских слов в речи.\\n\"}], \"grammarLevel\": 5, \"speakingRate\": 6, \"finalLevelCEF\": \"B1\", \"finalLevelSVS\": \"Intermediate Entry\", \"partTwoResult\": 7, \"usingOfCliche\": 7, \"levelOne_value\": 15, \"listeningLevel\": 7, \"vocabularyLevel\": 3, \"confidenceInSpeaking\": 5, \"partTwoResultAnswers\": 9, \"interactivityOfSpeech\": 8, \"partTwoResultClear_value\": 46.9, \"usingOfTheRussianLanguageInSpeech\": 9}, \"student\": \"Administrator - -\", \"trainer\": \"Administrator - -\"}',1,1,'2019-07-03 13:18:15',1);
 /*!40000 ALTER TABLE `Reports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,13 +152,13 @@ CREATE TABLE `Results` (
   `attempt` int(11) NOT NULL DEFAULT '1',
   `dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `test` int(11) NOT NULL DEFAULT '1',
+  `level` float DEFAULT '0',
   `part` int(11) DEFAULT '0',
   `phase` int(11) DEFAULT '0',
   `answers` text,
   `result` int(11) DEFAULT '0',
-  `level` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=399 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=441 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +167,7 @@ CREATE TABLE `Results` (
 
 LOCK TABLES `Results` WRITE;
 /*!40000 ALTER TABLE `Results` DISABLE KEYS */;
-INSERT INTO `Results` VALUES (27,1,1,'2019-06-03 09:07:50',1,1,1,NULL,0,4),(28,1,1,'2019-06-03 09:28:06',1,1,2,NULL,0,5),(29,1,1,'2019-06-03 10:15:46',1,1,3,NULL,0,6),(30,2,1,'2019-06-05 15:05:47',1,1,1,NULL,0,0),(31,2,6,'2019-06-18 10:26:13',1,1,1,NULL,0,0),(32,2,6,'2019-06-18 10:26:53',1,1,2,NULL,0,0),(33,2,6,'2019-06-18 10:28:36',1,1,3,NULL,0,0),(64,1,8,'2019-06-21 13:11:50',1,2,1,'[1,1,null,2]',0,0),(315,1,1,'2019-06-24 09:32:53',1,2,8,'',0,0),(318,1,1,'2019-06-24 09:47:26',1,2,7,'',0,0),(362,1,1,'2019-07-02 11:54:32',1,2,2,'',0,5),(364,1,1,'2019-07-02 11:54:33',1,2,3,'',0,6),(366,1,1,'2019-07-02 11:54:33',1,2,4,'',0,7),(368,1,1,'2019-07-02 11:54:34',1,2,5,'',0,8),(370,1,1,'2019-07-02 11:54:35',1,2,6,'',0,9),(371,1,1,'2019-07-02 11:54:35',1,2,9,'',0,46.6),(398,1,1,'2019-07-02 12:10:00',1,2,1,'[{\"part\":2,\"phase\":4,\"category\":1,\"result\":2,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":2,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":3,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":4,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":5,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":6,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":7,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":8,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":9,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":10,\"result\":3,\"extra\":\"\"}]',4,11.9);
+INSERT INTO `Results` VALUES (27,1,1,'2019-06-03 09:07:50',1,4,1,1,NULL,0),(28,1,1,'2019-06-03 09:28:06',1,5,1,2,NULL,0),(29,1,1,'2019-06-03 10:15:46',1,6,1,3,NULL,0),(315,1,1,'2019-06-24 09:32:53',1,0,2,8,'',0),(318,1,1,'2019-06-24 09:47:26',1,0,2,7,'',0),(420,1,1,'2019-07-03 14:19:44',1,12,2,1,'[{\"part\":2,\"phase\":4,\"category\":1,\"result\":3,\"extra\":\"11212\"},{\"part\":2,\"phase\":4,\"category\":2,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":3,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":4,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":5,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":6,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":7,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":8,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":9,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":10,\"result\":3,\"extra\":\"\"}]',4),(421,1,1,'2019-07-03 14:20:07',1,10,2,2,'',0),(427,1,1,'2019-07-03 14:20:27',1,10,2,5,'',0),(429,1,1,'2019-07-03 14:20:28',1,10,2,6,'',0),(435,1,1,'2019-07-03 14:20:34',1,5,2,3,'',0),(439,1,1,'2019-07-03 14:20:36',1,6,2,4,'',0),(440,1,1,'2019-07-03 14:20:36',1,53,2,9,'',0);
 /*!40000 ALTER TABLE `Results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -488,4 +520,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-02 15:13:04
+-- Dump completed on 2019-07-03 17:24:29

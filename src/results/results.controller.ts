@@ -35,4 +35,5 @@ export class ResultsController {
   async save(@Body() resultDto: ResultDto): Promise<any> {
     return this.resultsService.save(resultDto);
   }
+
 }

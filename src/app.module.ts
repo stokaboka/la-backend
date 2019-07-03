@@ -20,10 +20,12 @@ import { AttemptsController } from './attempts/attempts.controller';
 import { ReportsModule } from './reports/reports.module';
 import { ConfigModule } from './config/config.module';
 import { ClientModule } from './client/client.module';
+import { LevelsModule } from './levels/levels.module';
+import { LevelsController } from './levels/levels.controller';
+import { LevelsService } from './levels/levels.service';
 /*
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
-
 
 @Module({
   imports: [
@@ -37,11 +39,13 @@ import { ClientModule } from './client/client.module';
     ReportsModule,
     ConfigModule,
     ClientModule,
+    LevelsModule,
   ],
   controllers: [
     AppController,
     QuestionsController,
     ResultsController,
+    LevelsController,
     DescriptionsController,
     AttemptsController,
   ],
@@ -50,6 +54,7 @@ import { ClientModule } from './client/client.module';
     AuthService,
     QuestionsService,
     ResultsService,
+    LevelsService,
     DescriptionsService,
   ],
   exports: [
@@ -57,6 +62,7 @@ import { ClientModule } from './client/client.module';
     UsersModule,
     TokensModule,
     ResultsModule,
+    LevelsModule,
     DescriptionsModule,
     ConfigModule,
   ],

@@ -20,10 +20,6 @@ export class ReportsService {
     private readonly config: ConfigService,
   ) {}
 
-  async findOne(where: any): Promise<Reports> {
-    return await this.repository.findOne({where});
-  }
-
   async save(data: ReportsDto): Promise<any> {
     const { idUser, attempt, test } = data;
     try {

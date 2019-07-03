@@ -4,8 +4,8 @@
 
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Reports')
-export class Reports {
+@Entity('Levels')
+export class Levels {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -37,17 +37,38 @@ export class Reports {
   public test: number;
 
   @Column({
-    name: 'type',
-    type: 'varchar',
-    length: 50,
-  })
-  public type: string;
-
-  @Column({
-    name: 'data',
-    type: 'json',
+    name: 'level',
+    type: 'float',
+    default: 0,
     nullable: true,
   })
-  public data: object;
+  public level: number;
 
+  @Column({
+    name: 'levelCEF',
+    type: 'varchar',
+    length: 255,
+  })
+  public levelCEF: string;
+
+  @Column({
+    name: 'levelSVS',
+    type: 'varchar',
+    length: 255,
+  })
+  public levelSVS: string;
+
+  @Column({
+    name: 'manager',
+    type: 'varchar',
+    length: 255,
+  })
+  public manager: string;
+
+  @Column({
+    name: 'trainer',
+    type: 'varchar',
+    length: 255,
+  })
+  public trainer: string;
 }

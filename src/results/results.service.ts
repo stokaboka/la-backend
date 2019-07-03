@@ -115,4 +115,5 @@ export class ResultsService {
       return { error, result };
     }
   }
+
 }
