@@ -13,16 +13,18 @@ export class ExcelResultReport extends ExcelReport {
     this.tmplFile = config.templateResultExcelFile;
   }
 
-  fillCellByResultIndex(ws, index, row) {
+  fillCellByResultIndex(ws, index, row, w= 1) {
     const ACode = 65;
-    const ln: string = `${String.fromCharCode(ACode + 3 + index)}${row}`;
-    const cell = ws.getCell(ln);
-    cell.style = Object.create(cell.style);
-    cell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFFF0000' },
-    };
+    for (let idx = index; idx < index + w; idx++) {
+      const ln: string = `${String.fromCharCode(ACode + 3 + index)}${row}`;
+      const cell = ws.getCell(ln);
+      cell.style = Object.create(cell.style);
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFF0000' },
+      };
+    }
   }
 
   toPromiseBuffer(dataObject: any): Promise<Buffer> {
@@ -40,7 +42,11 @@ export class ExcelResultReport extends ExcelReport {
       ws.getCell('B3').value = `${data.manager}`;
       ws.getCell('B4').value = `${data.trainer}`;
       ws.getCell('B5').value = DateString.dateToString(data.date, 'DD.MM.YYYY');
-      ws.getCell('B6').value = `${data.results.finalLevelCEF} - ${data.results.finalLevelSVS}`;
+      ws.getCell('B6').value = `${data.results.finalLevelCEF_value} - ${data.results.finalLevelSVS_value}`;
+
+      // this.fillCellByResultIndex(ws, data.results.finalLevelCEF, 7);
+      // this.fillCellByResultIndex(ws, data.results.finalLevelSVS, 8, 2);
+      // this.fillCellByResultIndex(ws, data.results.finalLevelSVSDetail, 9);
 
       this.fillCellByResultIndex(ws, data.results.finalLevel, 10);
       this.fillCellByResultIndex(ws, data.results.vocabularyLevel, 12);
@@ -83,6 +89,8 @@ export class ExcelResultReport extends ExcelReport {
       const wb = await this.createFromTemplate(data);
       return await this.toPromiseBuffer(wb);
     } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.log(e.message);
       return Promise.resolve(new Buffer(e));
     }
   }
