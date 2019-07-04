@@ -25,6 +25,7 @@ import { LevelsController } from './levels/levels.controller';
 import { LevelsService } from './levels/levels.service';
 import { OrdersModule } from './orders/orders.module';
 import { OrderDetailsModule } from './order-details/order-details.module';
+import { CoursesModule } from './courses/courses.module';
 /*
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
@@ -44,6 +45,7 @@ import { OrderDetailsModule } from './order-details/order-details.module';
     LevelsModule,
     OrdersModule,
     OrderDetailsModule,
+    CoursesModule,
   ],
   controllers: [
     AppController,
