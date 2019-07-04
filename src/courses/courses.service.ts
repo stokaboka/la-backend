@@ -59,4 +59,13 @@ export class CoursesService {
       return { error, course };
     }
   }
+
+  async remove(course: CourseDto): Promise<any> {
+    const { id } = course;
+    try {
+      return await this.repository.delete({id});
+    } catch (error) {
+      return { error, course };
+    }
+  }
 }

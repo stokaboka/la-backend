@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CoursesService } from './courses.service';
 import { CourseDto } from './course.dto';
@@ -24,5 +24,11 @@ export class CoursesController {
   @UseGuards(new JwtAuthGuard())
   insert(@Body() course: CourseDto): Promise<any> {
     return this.service.save(course);
+  }
+
+  @Delete()
+  @UseGuards(new JwtAuthGuard())
+  remove(@Body() course: CourseDto): Promise<any> {
+    return this.service.remove(course);
   }
 }
