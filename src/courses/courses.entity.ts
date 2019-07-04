@@ -36,10 +36,10 @@ export class Courses {
   public price: number;
 
   @Column({
-    name: 'comment',
+    name: 'rem',
     type: 'varchar',
     nullable: true,
     length: 255,
   })
-  public comment: string;
+  public rem: string;
 }

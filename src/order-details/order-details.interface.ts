@@ -12,5 +12,5 @@ export interface OrderDetailsInterface {
   readonly price: number;
   readonly cost: number;
   readonly timing: string;
-  readonly comment: string;
+  readonly rem: string;
 }

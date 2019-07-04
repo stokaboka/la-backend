@@ -61,10 +61,10 @@ export class OrderDetails {
   public timing: string;
 
   @Column({
-    name: 'comment',
+    name: 'rem',
     type: 'varchar',
     nullable: true,
     length: 255,
   })
-  public comment: string;
+  public rem: string;
 }

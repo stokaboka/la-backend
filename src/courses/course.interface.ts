@@ -8,5 +8,5 @@ export interface CourseInterface {
   readonly hours: number;
   readonly timing: string;
   readonly price: number;
-  readonly comment: string;
+  readonly rem: string;
 }
