@@ -1,7 +1,6 @@
 import { Controller, UseGuards, Get, Param } from '@nestjs/common';
 import { DescriptionsService } from './descriptions.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { Descriptions } from './descriptions.entity';
 import { DescriptionFind } from './dto/description.find.dto';
 
 @Controller('descriptions')
