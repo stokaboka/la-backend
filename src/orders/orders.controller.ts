@@ -1,27 +1,25 @@
 import { Controller } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Orders } from './orders.entity';
 import { OrderDto } from './order.dto';
+import { OrdersService } from './orders.service';
 
 @Controller('orders')
 export class OrdersController {
   constructor(
-    @InjectRepository(Orders)
-    private readonly repository: Repository<Orders>,
+    private readonly service: OrdersService,
   ) {}
 
   async findOne(where: any): Promise<Orders> {
-    return await this.repository.findOne({ where });
+    return await this.service.findOne({ where });
   }
 
   async find(where: any): Promise<Orders[]> {
-    return await this.repository.find({ where });
+    return await this.service.find({ where });
   }
 
   async save(course: OrderDto): Promise<any> {
     try {
-      return await this.repository.save(course);
+      return await this.service.save(course);
     } catch (error) {
       return { error, course };
     }
