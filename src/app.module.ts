@@ -23,6 +23,7 @@ import { ClientModule } from './client/client.module';
 import { LevelsModule } from './levels/levels.module';
 import { LevelsController } from './levels/levels.controller';
 import { LevelsService } from './levels/levels.service';
+import { OrdersModule } from './orders/orders.module';
 /*
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
@@ -40,6 +41,7 @@ import { LevelsService } from './levels/levels.service';
     ConfigModule,
     ClientModule,
     LevelsModule,
+    OrdersModule,
   ],
   controllers: [
     AppController,
