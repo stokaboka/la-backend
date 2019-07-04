@@ -75,6 +75,7 @@ import { CoursesService} from './courses/courses.service';
     ResultsModule,
     LevelsModule,
     DescriptionsModule,
+    DescriptionsService,
     ConfigModule,
     OrdersService,
     CoursesService,

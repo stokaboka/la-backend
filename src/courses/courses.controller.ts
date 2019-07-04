@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CoursesService } from './courses.service';
 import { CourseDto } from './course.dto';
@@ -14,9 +14,15 @@ export class CoursesController {
     return this.service.find(params);
   }
 
+  @Put()
+  @UseGuards(new JwtAuthGuard())
+  update(@Body() course: CourseDto): Promise<any> {
+    return this.service.save(course);
+  }
+
   @Post()
   @UseGuards(new JwtAuthGuard())
-  save(@Body() course: CourseDto): Promise<any> {
+  insert(@Body() course: CourseDto): Promise<any> {
     return this.service.save(course);
   }
 }
