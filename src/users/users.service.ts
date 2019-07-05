@@ -10,6 +10,7 @@ import { Users } from './users.entity';
 import { User } from './interfaces/user.interface';
 import { UserFixDto } from './dto/user.fix.dto';
 import { UserDto } from './dto/user.dto';
+import { QueryParams } from '../utils/query.params';
 
 @Injectable()
 export class UsersService {
@@ -61,39 +62,12 @@ export class UsersService {
   }
 
   async find(params: any): Promise<any> {
-    const { page, limit, sortBy, descending, filter } = params;
     const { select } = this;
-    // console.log('params', request.params);
-    // console.log('body', request.body);
-    // console.log('query', request.query);
 
-    let where: any[] = [];
-    if (filter) {
-      where = [
-        { login: Like(`%${filter}%`) },
-        { firstName: Like(`%${filter}%`) },
-        { secondName: Like(`%${filter}%`) },
-        { lastName: Like(`%${filter}%`) },
-        { role: Like(`%${filter}%`) },
-      ];
-    }
+    const fields: string = 'login, firstName, secondName, lastName, role';
+    const queryParams = QueryParams.prepare(params, fields.split(', '));
 
-    const order: any = {};
-
-    if (sortBy) {
-      order[sortBy] = descending === 'true' ? 'DESC' : 'ASC';
-    }
-
-    const take = limit || 10;
-    const skip = ((page || 1) - 1) * (limit || 0);
-
-    const [result, total] = await this.repository.findAndCount({
-      select,
-      where,
-      order,
-      take,
-      skip,
-    });
+    const [result, total] = await this.repository.findAndCount({ ...queryParams, select });
 
     return {
       rows: result,

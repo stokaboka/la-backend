@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { Courses } from './courses.entity';
 import { CourseDto } from './course.dto';
+import { QueryParams } from '../utils/query.params';
 
 @Injectable()
 export class CoursesService {
@@ -16,40 +17,16 @@ export class CoursesService {
   }
 
   async find(params: any): Promise<any> {
-    const { page, limit, sortBy, descending, filter } = params;
 
-    let where: any[] = [];
-    if (filter) {
-      where = [
-        { course: Like(`%${filter}%`) },
-        { hours: Like(`%${filter}%`) },
-        { timing: Like(`%${filter}%`) },
-        { price: Like(`%${filter}%`) },
-        { rem: Like(`%${filter}%`) },
-      ];
-    }
+    const fields: string = 'course, hours, timing, price, rem';
+    const queryParams = QueryParams.prepare(params, fields.split(', '));
 
-    const order: any = {};
-
-    if (sortBy) {
-      order[sortBy] = descending === 'true' ? 'DESC' : 'ASC';
-    }
-
-    const take = limit || 0;
-    const skip = ((page || 1) - 1) * (limit || 0);
-
-    const [result, total] = await this.repository.findAndCount({
-      where,
-      order,
-      take,
-      skip,
-    });
+    const [result, total] = await this.repository.findAndCount(queryParams);
 
     return {
       rows: result,
       rowsNumber: total,
     };
-    // return await this.repository.find({ where });
   }
 
   async save(course: CourseDto): Promise<any> {

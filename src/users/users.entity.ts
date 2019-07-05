@@ -28,6 +28,8 @@ export class Users {
   @Column({
     name: 'firstName',
     type: 'varchar',
+    nullable: true,
+    default: '',
     length: 255,
   })
   public firstName: string;
@@ -35,7 +37,8 @@ export class Users {
   @Column({
     name: 'secondName',
     type: 'varchar',
-    default: '-',
+    nullable: true,
+    default: '',
     length: 255,
   })
   public secondName: string;
@@ -43,6 +46,8 @@ export class Users {
   @Column({
     name: 'lastName',
     type: 'varchar',
+    nullable: true,
+    default: '',
     length: 255,
   })
   public lastName: string;
@@ -51,6 +56,7 @@ export class Users {
     name: 'email',
     type: 'varchar',
     length: 255,
+    nullable: true,
     default: '',
   })
   public email: string;
@@ -59,6 +65,7 @@ export class Users {
     name: 'phone',
     type: 'varchar',
     length: 45,
+    nullable: true,
     default: '',
   })
   public phone: string;
@@ -90,6 +97,7 @@ export class Users {
     name: 'secretQuestion',
     type: 'varchar',
     length: 255,
+    nullable: true,
     default: '',
   })
   public secretQuestion: string;
@@ -98,6 +106,7 @@ export class Users {
     name: 'secretAnswer',
     type: 'varchar',
     length: 255,
+    nullable: true,
     default: '',
   })
   public secretAnswer: string;
@@ -114,6 +123,7 @@ export class Users {
     name: 'avatar',
     type: 'varchar',
     length: 255,
+    nullable: true,
     default: '',
   })
   public avatar: string;
