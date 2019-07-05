@@ -1,7 +1,7 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { OrderDetailsService } from './order-details.service';
-import { OrderDetails } from './order-details.entity';
 import { OrderDetailsDto } from './order-details.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('order-details')
 export class OrderDetailsController {
@@ -9,19 +9,27 @@ export class OrderDetailsController {
     private readonly service: OrderDetailsService,
   ) {}
 
-  async findOne(where: any): Promise<OrderDetails> {
-    return await this.service.findOne({ where });
+  @Get()
+  @UseGuards(new JwtAuthGuard())
+  find(@Query() params): Promise<any> {
+    return this.service.find(params);
   }
 
-  async find(where: any): Promise<OrderDetails[]> {
-    return await this.service.find({ where });
+  @Put()
+  @UseGuards(new JwtAuthGuard())
+  update(@Body() orderDetails: OrderDetailsDto): Promise<any> {
+    return this.service.save(orderDetails);
   }
 
-  async save(details: OrderDetailsDto): Promise<any> {
-    try {
-      return await this.service.save(details);
-    } catch (error) {
-      return { error, details };
-    }
+  @Post()
+  @UseGuards(new JwtAuthGuard())
+  insert(@Body() orderDetails: OrderDetailsDto): Promise<any> {
+    return this.service.save(orderDetails);
+  }
+
+  @Delete()
+  @UseGuards(new JwtAuthGuard())
+  remove(@Body() orderDetails: OrderDetailsDto): Promise<any> {
+    return this.service.remove(orderDetails);
   }
 }

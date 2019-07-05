@@ -4,12 +4,10 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like } from 'typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users.entity';
 import { User } from './interfaces/user.interface';
 import { UserFixDto } from './dto/user.fix.dto';
-import { UserDto } from './dto/user.dto';
 import { QueryParams } from '../utils/query.params';
 
 @Injectable()

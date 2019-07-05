@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
 import { Orders} from './orders.entity';
 import { OrderDto } from './order.dto';
 import { QueryParams } from '../utils/query.params';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class OrdersService {
@@ -29,11 +29,11 @@ export class OrdersService {
     };
   }
 
-  async save(course: OrderDto): Promise<any> {
+  async save(order: OrderDto): Promise<any> {
     try {
-      return await this.repository.save(course);
+      return await this.repository.save(order);
     } catch (error) {
-      return { error, course };
+      return { error, order };
     }
   }
 
