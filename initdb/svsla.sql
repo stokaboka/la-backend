@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Courses`
+--
+
+DROP TABLE IF EXISTS `Courses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Courses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `course` varchar(255) NOT NULL,
+  `hours` float NOT NULL,
+  `timing` varchar(255) NOT NULL,
+  `price` float NOT NULL,
+  `rem` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Courses`
+--
+
+LOCK TABLES `Courses` WRITE;
+/*!40000 ALTER TABLE `Courses` DISABLE KEYS */;
+INSERT INTO `Courses` VALUES (1,'Мини-тренинг общения на английском языке «Английский клуб» / «ENGLISH CLUB»',38,'каждую среду с 19-30 до 22-00',1000,NULL),(2,'8-дневный интенсивный тренинг-курс английского языка «VICTORY» с погружением в пансионате Подмосковья ',128,'1-й день: 12.00 – 23.00 2-7 день: 8.00 – 23.00 8-й день: 8.00 – 16.00',65400,'2 мест.'),(3,'8-дневный интенсивный тренинг-курс английского языка «VICTORY» с погружением в пансионате Подмосковья ',128,'1-й день: 12.00 – 23.00 2-7 день: 8.00 – 23.00 8-й день: 8.00 – 16.00',76700,'1 мест.'),(4,'8-дневный интенсивный тренинг-курс английского языка «MARVEL» в Москве ',85,'8 дней с 10.00 до 19.00',43800,NULL),(5,'5-дневный интенсивный тренинг-курс делового английского языка «BUSINESS» ',50,'суб., вск., пн., вт., ср., с 9-30 до 18-00',29500,NULL),(6,'16-дневный интенсивный тренинг-курс английского языка «PROGRESS» по вечерам ',64,'пон., вт., чт., пят.,  с 19-00 до 22-00',27800,NULL),(7,'8-дневный интенсивный тренинг-курс английского языка «ORIENTATION» по вечерам ',32,'пон., вт., чт., пят.,  с 19-00 до 22-00',13900,NULL),(8,'2-дневный интенсивный тренинг-курс бизнес английского языка «WEEKEND» в выходные',22,'суб., вск. с 10-00 до 19-00',15800,NULL),(9,'Курс правильного английского произношения «ENGLISH PHONETICS»',20,'ср. с 19-30 до 21-30, суб. с 11-00 до 13-00',17200,NULL),(10,'Городской тренинг английского языка для подростков «KIDZCITY»',22,' вт., чт.,  с 16-00 до 18-00',9800,NULL),(11,'Детский лагерь с изучением английского языка для детей и подростков «KIDZ LAND»',126,'1-й день: 12.00 – 22.00 2-7 день: 8.00 – 22.00 8-й день: 8.00 – 16.00',29600,'до 126 часов'),(12,'курс 1333555',11443,'вав ваыв44аукук выаывфа',3305,'примммвв');
+/*!40000 ALTER TABLE `Courses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Descriptions`
 --
 
@@ -63,7 +91,7 @@ CREATE TABLE `Levels` (
   `manager` varchar(255) NOT NULL,
   `trainer` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=551 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,8 +100,72 @@ CREATE TABLE `Levels` (
 
 LOCK TABLES `Levels` WRITE;
 /*!40000 ALTER TABLE `Levels` DISABLE KEYS */;
-INSERT INTO `Levels` VALUES (25,1,1,'2019-07-03 14:20:36',1,64.1,'B1','Intermediate Confident','Administrator - -','Administrator - -'),(26,1,1,'2019-07-03 14:20:36',1,64.1,'B1','Intermediate Confident','Administrator - -','Administrator - -');
+INSERT INTO `Levels` VALUES (550,1,1,'2019-07-05 15:00:00',1,38.1,'A2','Pre-Intermediate Entry','Administrator  ','ddff');
 /*!40000 ALTER TABLE `Levels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OrderDetails`
+--
+
+DROP TABLE IF EXISTS `OrderDetails`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OrderDetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOrder` int(11) NOT NULL,
+  `num` int(11) NOT NULL,
+  `course` varchar(255) NOT NULL,
+  `target` varchar(255) NOT NULL,
+  `hours` float NOT NULL,
+  `price` float NOT NULL,
+  `cost` float NOT NULL,
+  `timing` varchar(255) NOT NULL,
+  `rem` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OrderDetails`
+--
+
+LOCK TABLES `OrderDetails` WRITE;
+/*!40000 ALTER TABLE `OrderDetails` DISABLE KEYS */;
+INSERT INTO `OrderDetails` VALUES (1,1,222,'Курс правильного английского произношения «ENGLISH PHONETICS»','dsadadasdsadsasasd',20,17200,344000,'ср. с 19-30 до 21-30, суб. с 11-00 до 13-00','ccccccccccc');
+/*!40000 ALTER TABLE `OrderDetails` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Orders`
+--
+
+DROP TABLE IF EXISTS `Orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) NOT NULL,
+  `dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `currentLevelCEF` varchar(255) NOT NULL,
+  `currentLevelSVS` varchar(255) NOT NULL,
+  `targetLevelCEF` varchar(255) NOT NULL,
+  `targetLevelSVS` varchar(255) NOT NULL,
+  `student` varchar(255) NOT NULL,
+  `manager` varchar(255) NOT NULL,
+  `trainer` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Orders`
+--
+
+LOCK TABLES `Orders` WRITE;
+/*!40000 ALTER TABLE `Orders` DISABLE KEYS */;
+INSERT INTO `Orders` VALUES (1,1,'2019-07-05 13:46:55','B1','Intermediate Confident','C1','Upper-Intermediate Entry','Administrator  ','Administrator  ','dsdsds'),(2,1,'2019-05-07 00:00:00','B1','Intermediate Confident','C2','Upper-Intermediate Confident','Administrator  ','Administrator  ','vbcvbcv'),(3,1,'2019-05-07 00:00:00','B1','Intermediate Confident','C1','Upper-Intermediate Confident','Administrator  ','Administrator  ','dfdsfdsf');
+/*!40000 ALTER TABLE `Orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -126,7 +218,7 @@ CREATE TABLE `Reports` (
   `dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `test` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +227,7 @@ CREATE TABLE `Reports` (
 
 LOCK TABLES `Reports` WRITE;
 /*!40000 ALTER TABLE `Reports` DISABLE KEYS */;
-INSERT INTO `Reports` VALUES (192,'result','{\"date\": \"2019-07-03T13:18:15.341Z\", \"manager\": \"Administrator - -\", \"results\": {\"levelOne\": 5, \"finalLevel\": 57.7, \"descriptions\": [{\"label\": \"Лексика / Vocabulary\", \"level\": 4, \"target\": \"vocabularyLevel\", \"category\": \"Лексика / Vocabulary\", \"description\": \"\\\"500-800 единиц. Бытовая и ограниченная абстрактная лексика. Навык синонимичности на стадии формирования. Базовые слова бизнес английского. Способность к чтению и написанию новых слов.\\n\\\"\"}, {\"label\": \"Грамматика / Grammar\", \"level\": 5, \"target\": \"grammarLevel\", \"category\": \"Грамматика / Grammar\", \"description\": \"\\\"Объем используемых временных форм глагола следующий: (формы настоящего времени: present simple, present perfect, present continuous, present perfect continuous. Формы прошедшего времени: past simple, past perfect, past continuous. Формы будущего времени: future simple). Расширено представление о сравнительной степени (much more, as).Первый и второй тип сослагательных предложений. Пассивный залог в простых предложениях. Вопросы с хвостиком «не так ли».\\n\\\"\"}, {\"label\": \"Восприятие на слух / Listening\", \"level\": 6, \"target\": \"listeningLevel\", \"category\": \"Восприятие на слух / Listening\", \"description\": \"Понятны не адаптированные высказывания носителей языка любой продолжительности, без понимания деталей связанных с использованием идиом, фразовых глаголов и стилистических особенностей.\"}, {\"label\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"level\": 11.9, \"category\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"description\": \"Вы владеете лексико-грамматическими компетентностями на уровне С1 по общеевропейской шкале. Это означает, что Вы можете понимать сложные объемные (разножанровые) тексты на английском языке (в том числе и на профессиональную тематику): статьи, инструкции, доклады и т.д. Вы можете аргументировано и убедительно излагать свою точку зрения во время переговоров. Вы хорошо понимаете речь носителей языка на слух, даже если она недостаточно структурирована и/или изобилует сленговыми выражениями и идиомами. (С1) В целом, уровень владения языком достаточна для свободного общения, но в ряде ситуаций Вы все еще можете испытывать компетентностные трудности, связанные с недостатком постоянной языковой практики.\"}, {\"label\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"level\": 5, \"category\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"description\": \"Средняя уверенность при говорении на языке, боязнь сделать ошибку, навык говорения недостаточен, при говорении на языке быстро возникает усталость, появляются ошибки, речь путается.\"}, {\"label\": \"Скорость речи / Speaking rate\", \"level\": 6, \"category\": \"Скорость речи / Speaking rate\", \"description\": \"Скорость речи близка к естественной. Сформирован навык убыстрения и замедления речи в зависимости от языковой ситуации.\"}, {\"label\": \"Языковые клише и стандартные фразы / Using of cliché\", \"level\": 7, \"category\": \"Языковые клише и стандартные фразы / Using of cliché\", \"description\": \"Знание клише и фраз позволяют стилистически окрашивать речь. При высказывании любой продолжительности сохраняется структура видимая собеседнику. Собеседник после окончания разговора чувствует удовлетворенность от общения.\"}, {\"label\": \"Характер интерактивности речи / Interactivity of speech\", \"level\": 8, \"category\": \"Характер интерактивности речи / Interactivity of speech\", \"description\": \"Владение инициативой в разговоре, при этом собеседник чувствует себя комфортно.\"}, {\"label\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"level\": 9, \"category\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"description\": \"Полное отсутствие русских слов в речи.\\n\"}], \"grammarLevel\": 5, \"speakingRate\": 6, \"finalLevelCEF\": \"B1\", \"finalLevelSVS\": \"Intermediate Entry\", \"partTwoResult\": 7, \"usingOfCliche\": 7, \"levelOne_value\": 15, \"listeningLevel\": 7, \"vocabularyLevel\": 3, \"confidenceInSpeaking\": 5, \"partTwoResultAnswers\": 9, \"interactivityOfSpeech\": 8, \"partTwoResultClear_value\": 46.9, \"usingOfTheRussianLanguageInSpeech\": 9}, \"student\": \"Administrator - -\", \"trainer\": \"Administrator - -\"}',1,1,'2019-07-03 13:18:15',1);
+INSERT INTO `Reports` VALUES (210,'result','{\"date\": \"2019-07-05T12:07:12.828Z\", \"manager\": \"Administrator  \", \"results\": {\"levelOne\": 5, \"finalLevel\": 7, \"descriptions\": [{\"label\": \"Лексика / Vocabulary\", \"level\": 4, \"target\": \"vocabularyLevel\", \"category\": \"Лексика / Vocabulary\", \"description\": \"\\\"500-800 единиц. Бытовая и ограниченная абстрактная лексика. Навык синонимичности на стадии формирования. Базовые слова бизнес английского. Способность к чтению и написанию новых слов.\\n\\\"\"}, {\"label\": \"Грамматика / Grammar\", \"level\": 5, \"target\": \"grammarLevel\", \"category\": \"Грамматика / Grammar\", \"description\": \"\\\"Объем используемых временных форм глагола следующий: (формы настоящего времени: present simple, present perfect, present continuous, present perfect continuous. Формы прошедшего времени: past simple, past perfect, past continuous. Формы будущего времени: future simple). Расширено представление о сравнительной степени (much more, as).Первый и второй тип сослагательных предложений. Пассивный залог в простых предложениях. Вопросы с хвостиком «не так ли».\\n\\\"\"}, {\"label\": \"Восприятие на слух / Listening\", \"level\": 6, \"target\": \"listeningLevel\", \"category\": \"Восприятие на слух / Listening\", \"description\": \"Понятны не адаптированные высказывания носителей языка любой продолжительности, без понимания деталей связанных с использованием идиом, фразовых глаголов и стилистических особенностей.\"}, {\"label\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"level\": 9, \"category\": \"Устное владение лексико-грамматическими компетентностями / General comment on oral Assessment Bands\", \"description\": \"Вы владеете лексико-грамматическими компетентностями на уровне В2 по общеевропейской шкале. Это означает, что Вы понимаете тексты бытового содержания. Вы свободно высказываетесь по различной тематике, но можете испытывать трудности при общении на узкопрофессиональные темы.  Вы успешно принимаете участие в дискуссии и можете доказать свою точку зрения, выразить предпочтения, задать вопросы по ходу переговоров или презентации. Вы можете успешно понимать носителей языка в ситуациях реального общения, если их речь лишена идиоматических оборотов и сленга. Ваш уровень языка достаточен для общения в личной жизни и на профессиональные темы, но Вы испытываете лексико-грамматические и компетентностные трудности, связанные с недостатком постоянной интенсивной языковой практики.\"}, {\"label\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"level\": 8, \"category\": \"Уверенность и охотность при говорении / Confidence in speaking\", \"description\": \"Речь уверенная, легкое переключение с темы на темы, речь поддерживается адекватной невербаликой (жесты, мимика).\"}, {\"label\": \"Скорость речи / Speaking rate\", \"level\": 10, \"category\": \"Скорость речи / Speaking rate\", \"description\": \"Скорость речи естественная, идентична скорости речи носителя языка.\"}, {\"label\": \"Языковые клише и стандартные фразы / Using of cliché\", \"level\": 10, \"category\": \"Языковые клише и стандартные фразы / Using of cliché\", \"description\": \"Знание клише и фраз позволяют стилистически окрашивать речь. При высказывании любой продолжительности сохраняется структура видимая собеседнику. Собеседник после окончания разговора чувствует удовлетворенность от общения.\"}, {\"label\": \"Характер интерактивности речи / Interactivity of speech\", \"level\": 10, \"category\": \"Характер интерактивности речи / Interactivity of speech\", \"description\": \"Владение инициативой в разговоре, при этом собеседник чувствует себя комфортно.\"}, {\"label\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"level\": 10, \"category\": \"Использование помощи русского в речи / Using of the Russian language in speech\", \"description\": \"Полное отсутствие русских слов в речи.\\n\"}], \"grammarLevel\": 5, \"speakingRate\": 10, \"finalLevelCEF\": 2, \"finalLevelSVS\": 3, \"partTwoResult\": 9, \"usingOfCliche\": 10, \"levelOne_value\": 15, \"listeningLevel\": 7, \"vocabularyLevel\": 3, \"finalLevel_value\": 71.7, \"finalLevelCEF_value\": \"B1\", \"finalLevelSVSDetail\": 7, \"finalLevelSVS_value\": \"Intermediate Confident\", \"confidenceInSpeaking\": 8, \"partTwoResultAnswers\": 7, \"interactivityOfSpeech\": 10, \"partTwoResultClear_value\": 57, \"usingOfTheRussianLanguageInSpeech\": 10}, \"student\": \"Administrator  \", \"trainer\": \"111222\"}',1,1,'2019-07-05 12:07:12',1);
 /*!40000 ALTER TABLE `Reports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +250,7 @@ CREATE TABLE `Results` (
   `answers` text,
   `result` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=441 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=669 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +259,7 @@ CREATE TABLE `Results` (
 
 LOCK TABLES `Results` WRITE;
 /*!40000 ALTER TABLE `Results` DISABLE KEYS */;
-INSERT INTO `Results` VALUES (27,1,1,'2019-06-03 09:07:50',1,4,1,1,NULL,0),(28,1,1,'2019-06-03 09:28:06',1,5,1,2,NULL,0),(29,1,1,'2019-06-03 10:15:46',1,6,1,3,NULL,0),(315,1,1,'2019-06-24 09:32:53',1,0,2,8,'',0),(318,1,1,'2019-06-24 09:47:26',1,0,2,7,'',0),(420,1,1,'2019-07-03 14:19:44',1,12,2,1,'[{\"part\":2,\"phase\":4,\"category\":1,\"result\":3,\"extra\":\"11212\"},{\"part\":2,\"phase\":4,\"category\":2,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":3,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":4,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":5,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":6,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":7,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":8,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":9,\"result\":3,\"extra\":\"\"},{\"part\":2,\"phase\":4,\"category\":10,\"result\":3,\"extra\":\"\"}]',4),(421,1,1,'2019-07-03 14:20:07',1,10,2,2,'',0),(427,1,1,'2019-07-03 14:20:27',1,10,2,5,'',0),(429,1,1,'2019-07-03 14:20:28',1,10,2,6,'',0),(435,1,1,'2019-07-03 14:20:34',1,5,2,3,'',0),(439,1,1,'2019-07-03 14:20:36',1,6,2,4,'',0),(440,1,1,'2019-07-03 14:20:36',1,53,2,9,'',0);
+INSERT INTO `Results` VALUES (27,1,1,'2019-06-03 09:07:50',1,4,1,1,NULL,0),(28,1,1,'2019-06-03 09:28:06',1,5,1,2,NULL,0),(29,1,1,'2019-06-03 10:15:46',1,6,1,3,NULL,0),(315,1,1,'2019-06-24 09:32:53',1,0,2,8,'',0),(318,1,1,'2019-06-24 09:47:26',1,0,2,7,'',0),(600,1,1,'2019-07-05 10:04:33',1,9,2,1,'[]',4),(659,1,1,'2019-07-05 12:13:39',1,1,2,4,'',0),(661,1,1,'2019-07-05 12:13:39',1,1,2,5,'',0),(663,1,1,'2019-07-05 12:13:40',1,1,2,6,'',0),(665,1,1,'2019-07-05 12:14:57',1,7,2,2,'',0),(667,1,1,'2019-07-05 12:19:35',1,10,2,3,'',0),(668,1,1,'2019-07-05 12:19:35',1,29,2,9,'',0);
 /*!40000 ALTER TABLE `Results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,18 +299,18 @@ CREATE TABLE `Users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `secondName` varchar(255) NOT NULL DEFAULT '-',
-  `lastName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL DEFAULT '',
-  `phone` varchar(45) NOT NULL DEFAULT '',
+  `firstName` varchar(255) DEFAULT '',
+  `secondName` varchar(255) DEFAULT '',
+  `lastName` varchar(255) DEFAULT '',
+  `email` varchar(255) DEFAULT '',
+  `phone` varchar(45) DEFAULT '',
   `regDate` datetime(6) DEFAULT CURRENT_TIMESTAMP(6),
   `lastDate` datetime DEFAULT NULL,
   `updDate` datetime(6) DEFAULT CURRENT_TIMESTAMP(6),
-  `secretQuestion` varchar(255) NOT NULL DEFAULT '',
-  `secretAnswer` varchar(255) NOT NULL DEFAULT '',
+  `secretQuestion` varchar(255) DEFAULT '',
+  `secretAnswer` varchar(255) DEFAULT '',
   `role` varchar(255) NOT NULL DEFAULT 'USER',
-  `avatar` varchar(255) NOT NULL DEFAULT '',
+  `avatar` varchar(255) DEFAULT '',
   `attempt` int(11) NOT NULL DEFAULT '1',
   `closed` int(11) NOT NULL DEFAULT '0',
   `birthday` datetime DEFAULT NULL,
@@ -233,7 +325,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'admin','=0987654321','Administrator','-','-','','',NULL,NULL,'2019-06-19 11:17:25.000000','','','ADMIN','',8,0,NULL),(2,'111','111111','111','111','111','','',NULL,NULL,'2019-06-19 11:19:26.000000','','','USER','',10,0,NULL);
+INSERT INTO `Users` VALUES (1,'admin','=0987654321','Administrator','','','','',NULL,NULL,'2019-06-19 11:17:25.000000','','','ADMIN','',8,0,NULL),(2,'111','111111','111','111','111','','',NULL,NULL,'2019-07-03 15:18:49.000000','','','USER','',11,0,NULL);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,4 +612,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-03 17:24:29
+-- Dump completed on 2019-07-05 18:08:09
