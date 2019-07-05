@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { OrderDetailsService } from './order-details.service';
 import { OrderDetailsDto } from './order-details.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-@Controller('order-details')
+@Controller('orderdetails')
 export class OrderDetailsController {
   constructor(
     private readonly service: OrderDetailsService,
@@ -11,8 +11,14 @@ export class OrderDetailsController {
 
   @Get()
   @UseGuards(new JwtAuthGuard())
-  find(@Query() params): Promise<any> {
-    return this.service.find(params);
+  find(@Query() query): Promise<any> {
+    return this.service.find(query);
+  }
+
+  @Get('order/:idOrder')
+  @UseGuards(new JwtAuthGuard())
+  order(@Query() query, @Param() params: any): Promise<any> {
+    return this.service.find(query, params);
   }
 
   @Put()

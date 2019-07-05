@@ -16,10 +16,10 @@ export class OrderDetailsService {
     return await this.repository.findOne({ where });
   }
 
-  async find(params: any): Promise<any> {
+  async find(query: any = null, params: any = null): Promise<any> {
 
-    const fields: string = 'num, course, target, hours, price, cost, timing, rem';
-    const queryParams = QueryParams.prepare(params, fields.split(', '));
+    const fields: string[] = 'num, course, target, hours, price, cost, timing, rem'.split(', ');
+    const queryParams = QueryParams.prepare(query, fields, params);
 
     const [result, total] = await this.repository.findAndCount(queryParams);
 

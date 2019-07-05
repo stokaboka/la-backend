@@ -5,10 +5,10 @@
 import { Like } from 'typeorm';
 
 export class QueryParams {
-  static prepare(params: any, whereProps: any[] = []): any {
+  static prepare(params: any, whereProps: any[] = [], paramsWhere: any = {}): any {
     const { page, limit, sortBy, descending, filter } = params;
 
-    let where: any[] = [];
+    let where: any = {...paramsWhere};
     if (filter) {
       where = whereProps.map(e => {
         const out = {};
