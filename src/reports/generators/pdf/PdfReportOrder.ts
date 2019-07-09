@@ -6,7 +6,7 @@ import { PdfReport } from './PdfReport';
 import { ConfigService } from '../../../config/config.service';
 import { PdfDocumentDefinitionResult } from './documentDefinition/PdfDocumentDefinitionResult';
 
-export class PdfReportResult  extends PdfReport {
+export class PdfReportOrder extends PdfReport {
   constructor(config: ConfigService) {
     super(config);
   }
@@ -20,5 +20,4 @@ export class PdfReportResult  extends PdfReport {
       return Promise.resolve(new Buffer(e));
     }
   }
-
 }

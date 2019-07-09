@@ -7,6 +7,7 @@ import { ExcelResultReport } from './excel/ExcelReportResult';
 import { PdfReport } from './pdf/PdfReport';
 import { ExcelReport } from './excel/ExcelReport';
 import { PdfReportResult } from './pdf/PdfReportResult';
+import { PdfReportOrder } from './pdf/PdfReportOrder';
 
 export class ReportFactory {
   static create(format: string, report: string, config: ConfigService) {
@@ -39,6 +40,8 @@ export class ReportFactory {
     switch (report.toUpperCase()) {
       case 'RESULT' :
         return new PdfReportResult(config);
+      case 'ORDER' :
+        return new PdfReportOrder(config)
       default:
         throw {
           message: `Report not supported: ${report}`,

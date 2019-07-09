@@ -4,12 +4,19 @@ import { Orders} from './orders.entity';
 import { OrderDto } from './order.dto';
 import { QueryParams } from '../utils/query.params';
 import { Repository } from 'typeorm';
+import { OrderReportDto } from './order.report.dto';
+import { ConfigService } from '../config/config.service';
+import { Report } from '../reports/generators/Report';
+import { ReportFactory } from '../reports/generators/ReportFactory';
+import { OrderDetailsService } from '../order-details/order-details.service';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Orders)
     private readonly repository: Repository<Orders>,
+    private readonly orderDetailsService: OrderDetailsService,
+    private readonly config: ConfigService,
   ) {}
 
   async findOne(where: any): Promise<Orders> {
@@ -43,6 +50,30 @@ export class OrdersService {
       return await this.repository.delete({id});
     } catch (error) {
       return { error, order };
+    }
+  }
+
+  async reportFile(params: OrderReportDto): Promise<Buffer> {
+    const { id, id: idOrder, format } = params;
+    const report = 'order';
+    try {
+      const reportGenerator: Report = ReportFactory.create(
+        format,
+        report,
+        this.config,
+      );
+
+      const order = await this.repository.findOne({id});
+      const details = await this.orderDetailsService.find(null, {idOrder});
+
+      const reportData = {
+        order,
+        details: details.rows,
+      };
+
+      return await reportGenerator.generate(reportData);
+    } catch (e) {
+      return Report.toBuffer(e.message);
     }
   }
 }
