@@ -65,7 +65,7 @@ export class OrdersService {
 
       const order = await this.findOne({ id });
       const details = await this.orderDetailsService.find(
-        { page: 0, limit: 0, sortBy: 'num', descending: 'false', filter: null },
+        { sortBy: 'num'},
         { idOrder },
       );
 

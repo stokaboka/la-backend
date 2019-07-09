@@ -11,7 +11,7 @@ export class DateString {
     return '';
   }
 
-  static dateToString(date: string, format: string): string {
+  static dateToString(date: any, format: string): string {
     let out = '';
     if (date) {
       // 2019-07-01T11:37:57.930Z
