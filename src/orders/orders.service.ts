@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Orders} from './orders.entity';
+import { Orders } from './orders.entity';
 import { OrderDto } from './order.dto';
 import { QueryParams } from '../utils/query.params';
 import { Repository } from 'typeorm';
@@ -24,13 +24,13 @@ export class OrdersService {
   }
 
   async find(params: any): Promise<any> {
+    const fields: string =
+      'dt, currentLevelCEF, currentLevelSVS, targetLevelCEF, targetLevelSVS, student, manager, trainer';
+    const queryParams = QueryParams.prepare(params, fields.split(', '));
 
-  const fields: string = 'dt, currentLevelCEF, currentLevelSVS, targetLevelCEF, targetLevelSVS, student, manager, trainer';
-  const queryParams = QueryParams.prepare(params, fields.split(', '));
+    const [result, total] = await this.repository.findAndCount(queryParams);
 
-  const [result, total] = await this.repository.findAndCount(queryParams);
-
-  return {
+    return {
       rows: result,
       rowsNumber: total,
     };
@@ -47,7 +47,7 @@ export class OrdersService {
   async remove(order: OrderDto): Promise<any> {
     const { id } = order;
     try {
-      return await this.repository.delete({id});
+      return await this.repository.delete({ id });
     } catch (error) {
       return { error, order };
     }
@@ -63,8 +63,11 @@ export class OrdersService {
         this.config,
       );
 
-      const order = await this.repository.findOne({id});
-      const details = await this.orderDetailsService.find(null, {idOrder});
+      const order = await this.findOne({ id });
+      const details = await this.orderDetailsService.find(
+        { page: 0, limit: 0, sortBy: 'num', descending: 'false', filter: null },
+        { idOrder },
+      );
 
       const reportData = {
         order,

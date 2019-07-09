@@ -4,7 +4,7 @@
 
 import { PdfReport } from './PdfReport';
 import { ConfigService } from '../../../config/config.service';
-import { PdfDocumentDefinitionResult } from './documentDefinition/PdfDocumentDefinitionResult';
+import { PdfDocumentDefinitionOrder } from './documentDefinition/PdfDocumentDefinitionOrder';
 
 export class PdfReportOrder extends PdfReport {
   constructor(config: ConfigService) {
@@ -13,8 +13,8 @@ export class PdfReportOrder extends PdfReport {
 
   async generate(data: any): Promise<Buffer> {
     try {
-      const documentDefinitionResult: PdfDocumentDefinitionResult = new PdfDocumentDefinitionResult(this.config);
-      const documentDefinition: any = documentDefinitionResult.getDocumentDefinition(data);
+      const documentDefinitionOrder: PdfDocumentDefinitionOrder = new PdfDocumentDefinitionOrder(this.config);
+      const documentDefinition: any = documentDefinitionOrder.getDocumentDefinition(data);
       return await this.createPdfBuffer(documentDefinition);
     } catch (e) {
       return Promise.resolve(new Buffer(e));

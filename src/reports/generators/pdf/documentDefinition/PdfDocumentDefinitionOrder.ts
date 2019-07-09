@@ -16,6 +16,10 @@ export class PdfDocumentDefinitionOrder extends PdfDocumentDefinition {
   }
 
   protected generateDocumentDefinition(contentData: any): any {
+
+    // tslint:disable-next-line:no-console
+    console.log(contentData);
+
     const { info, defaultStyle, pageMargins } = this.pdf;
     const { pageSize, pageOrientation } = this;
     const content = this.prepareContent(contentData);
@@ -32,7 +36,12 @@ export class PdfDocumentDefinitionOrder extends PdfDocumentDefinition {
   }
 
   protected prepareContent(content: any): any {
-    return [];
+    return [
+      {
+        style: 'title',
+        text: content.title,
+      },
+    ];
   }
 
   protected prepareStyles(): any {

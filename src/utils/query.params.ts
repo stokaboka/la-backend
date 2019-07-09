@@ -5,27 +5,33 @@
 import { Like } from 'typeorm';
 
 export class QueryParams {
-  static prepare(params: any, whereProps: any[] = [], paramsWhere: any = {}): any {
-    const { page, limit, sortBy, descending, filter } = params;
+  static prepare(
+    params: any,
+    whereProps: any[] = [],
+    paramsWhere: any = {},
+  ): any {
+    if (params) {
+      const { page, limit, sortBy, descending, filter } = params;
 
-    let where: any = {...paramsWhere};
-    if (filter) {
-      where = whereProps.map(e => {
-        const out = {};
-        out[e] = Like(`%${filter}%`);
-        return out;
-      });
+      let where: any = {...paramsWhere};
+      if (filter) {
+        where = whereProps.map(e => {
+            const out = {};
+            out[e] = Like(`%${filter}%`);
+            return out;
+          });
+      }
+
+      const order: any = {};
+
+      if (sortBy) {
+        order[sortBy] = descending === 'true' ? 'DESC' : 'ASC';
+      }
+
+      const take = limit || 0;
+      const skip = ((page || 1) - 1) * (limit || 0);
+
+      return { where, order, take, skip };
     }
-
-    const order: any = {};
-
-    if (sortBy) {
-      order[sortBy] = descending === 'true' ? 'DESC' : 'ASC';
-    }
-
-    const take = limit || 0;
-    const skip = ((page || 1) - 1) * (limit || 0);
-
-    return { where, order, take, skip };
   }
 }
