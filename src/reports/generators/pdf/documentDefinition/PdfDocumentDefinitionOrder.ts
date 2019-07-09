@@ -12,11 +12,31 @@ export class PdfDocumentDefinitionOrder extends PdfDocumentDefinition {
   }
 
   protected getContent(data: any): any {
-    return null;
+    return data;
   }
 
-  protected generateDocumentDefinition(content: any): any {
-    return null;
+  protected generateDocumentDefinition(contentData: any): any {
+    const { info, defaultStyle, pageMargins } = this.pdf;
+    const { pageSize, pageOrientation } = this;
+    const content = this.prepareContent(contentData);
+    const styles = this.prepareStyles();
+    return {
+      info,
+      pageSize,
+      pageOrientation,
+      pageMargins,
+      content,
+      styles,
+      defaultStyle,
+    };
+  }
+
+  protected prepareContent(content: any): any {
+    return [];
+  }
+
+  protected prepareStyles(): any {
+    return {};
   }
 
 }

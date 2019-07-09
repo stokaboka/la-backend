@@ -13,6 +13,22 @@ export class PdfDocumentDefinition {
     date: 'DD.MM.YYYY',
   };
 
+  pageSize: string = 'A4';
+  pageOrientation: string = 'landscape';
+
+  pdf: any = {
+    info: {
+      title: 'Свобода слова - Language Assessment©',
+      author: 'Igor Khorev <igorhorev@gmail.com>',
+      subject: '',
+      keywords: 'language assessment',
+    },
+    pageMargins: [40, 40, 40, 40],
+    defaultStyle: {
+      columnGap: 20,
+    },
+  };
+
   constructor(config: ConfigService) {
     this.config = config;
   }
@@ -31,10 +47,18 @@ export class PdfDocumentDefinition {
   }
 
   protected getContent(data: any): any {
-    return null;
+    return data;
   }
 
-  protected generateDocumentDefinition(content: any): any {
-    return null;
+  protected generateDocumentDefinition(contentData: any): any {
+    return contentData;
+  }
+
+  protected prepareContent(content: any): any {
+    return [];
+  }
+
+  protected prepareStyles(): any {
+    return {};
   }
 }
