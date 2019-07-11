@@ -47,6 +47,13 @@ export class OrdersService {
   async remove(order: OrderDto): Promise<any> {
     const { id } = order;
     try {
+
+      try {
+        const remodeDtails = this.orderDetailsService.removeOrder(id);
+      } catch (error) {
+        return { error, order };
+      }
+
       return await this.repository.delete({ id });
     } catch (error) {
       return { error, order };

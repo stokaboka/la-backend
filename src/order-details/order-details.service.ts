@@ -46,4 +46,11 @@ export class OrderDetailsService {
     }
   }
 
+  async removeOrder(idOrder: number): Promise<any> {
+    try {
+      return await this.repository.delete({idOrder});
+    } catch (error) {
+      return { error, idOrder };
+    }
+  }
 }
