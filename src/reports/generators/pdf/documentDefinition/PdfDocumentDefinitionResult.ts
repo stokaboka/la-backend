@@ -24,13 +24,12 @@ export class PdfDocumentDefinitionResult extends PdfDocumentDefinition {
   }
 
   protected getContent(data: any): any {
-    // const img: string = 'svs_logo.png';
     const out: any = {
       ...data,
       title: 'РЕЗУЛЬТАТЫ Language Assessment',
       logoImage: this.imageToDataUri(`${this.config.imagesPath}/${this.logo}`),
       logoImageSize: [132, 99],
-      finalResult: `${data.results.finalLevelCEF} - ${data.results.finalLevelSVS}`,
+      finalResult: `${data.results.finalLevelCEF_value} - ${data.results.finalLevelSVS_value}`,
       date: this.dateToString(data.date),
     };
 
