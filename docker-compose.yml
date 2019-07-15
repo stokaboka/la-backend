@@ -14,6 +14,21 @@ services:
       - MYSQL_DATABASE=svsla
       - MYSQL_ROOT_PASSWORD=123456789
 
+    laweb:
+      build: .
+      image: laweb
+      restart: always
+      command: ["./wait-for", "ladb:3366", "--", "npm", "run", "start:prod" ]
+      environment:
+        - NODE_ENV=production
+        - SERVER_PORT=4444
+        - WEB_CONCURRENCY=2
+        - DEBUG=express:*
+      ports:
+        - "80:4444"
+      depends_on:
+        - ladb
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
