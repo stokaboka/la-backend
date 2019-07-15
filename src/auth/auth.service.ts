@@ -7,13 +7,13 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { User } from '../users/interfaces/user.interface';
 import { UsersService } from '../users/users.service';
-import { TokensService } from '../tokens/tokens.service';
+// import { TokensService } from '../tokens/tokens.service';
 
 @Injectable()
 export class AuthService {
 
   constructor(
-    private readonly tokensService: TokensService,
+    // private readonly tokensService: TokensService,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   async signOut(user: User): Promise<any> {
-    await this.tokensService.clearTokenByUser(user);
+    // await this.tokensService.clearTokenByUser(user);
     return {};
   }
 
