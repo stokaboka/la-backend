@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
@@ -25,6 +25,9 @@ import { CoursesModule } from './courses/courses.module';
 
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+
+import { FrontendMiddleware } from './frontend.middleware';
+
 /*
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
@@ -75,6 +78,16 @@ import { JwtModule } from '@nestjs/jwt';
     ConfigModule,
   ],
 })
-export class AppModule {
+export class AppModule implements NestModule {
+
   constructor(private readonly connection: Connection) {}
+
+  configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
+    consumer
+      .apply(FrontendMiddleware)
+      .forRoutes({
+        path: '/**',
+        method: RequestMethod.ALL,
+      });
+  }
 }
