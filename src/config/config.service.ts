@@ -90,7 +90,8 @@ export class ConfigService implements TypeOrmOptionsFactory {
   }
 
   get publicPath(): string {
-    return String(this.envConfig.PUBLIC_PATH);
+    // return String(this.envConfig.PUBLIC_PATH);
+    return path.join('public');
   }
 
   get clientConfig(): string {
