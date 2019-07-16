@@ -41,6 +41,8 @@ export class FrontendMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: () => void) {
     const { url, baseUrl } = req;
+    // tslint:disable-next-line:no-console
+    console.log('FrontendMiddleware - ', url, baseUrl);
     if (baseUrl.indexOf(this.ROUTE_PREFIX) === 1) {
       // it starts with /api --> continue with execution
       next();
