@@ -20,7 +20,8 @@ async function bootstrap() {
     AppModule,
   );
 
-  app.setGlobalPrefix('v1');
+  const apiVersionNumber = app.get('ConfigService').apiVersion;
+  app.setGlobalPrefix(`v${apiVersionNumber}`);
 
   // const app = await NestFactory.create<NestFastifyApplication>(
   //   AppModule,

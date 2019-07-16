@@ -30,6 +30,7 @@ export class ConfigService {
       NODE_ENV: Joi.string()
         .valid(['development', 'production', 'test', 'provision'])
         .default('development'),
+      API_VERSION: Joi.number().default(1),
       SERVER_PORT: Joi.number().default(4444),
       SERVER_HOST: Joi.string().default('0.0.0.0'),
       PUBLIC_PATH: Joi.string().default(''),
@@ -48,6 +49,10 @@ export class ConfigService {
       throw new Error(`Config validation error: ${error.message}`);
     }
     return validatedEnvConfig;
+  }
+
+  get apiVersion(): number {
+    return Number(this.envConfig.API_VERSION);
   }
 
   get port(): number {
