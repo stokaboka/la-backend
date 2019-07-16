@@ -5,6 +5,9 @@
 import { Module, Global } from '@nestjs/common';
 import { ConfigService } from './config.service';
 
+// tslint:disable-next-line:no-console
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 @Global()
 @Module({
   providers: [

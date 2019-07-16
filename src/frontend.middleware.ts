@@ -21,8 +21,6 @@ const allowedExt = [
   '.svg',
 ];
 
-// const resolvePath = (file: string) => path.resolve(`../public/${file}`);
-
 @Injectable()
 export class FrontendMiddleware implements NestMiddleware {
 
@@ -38,12 +36,12 @@ export class FrontendMiddleware implements NestMiddleware {
   }
 
   resolvePath(file: string) {
-    return path.resolve(`${this.PUBLIC_PATH}/${file}`);
+    return path.resolve(`${this.PUBLIC_PATH}`, `${file}`);
   }
 
   use(req: Request, res: Response, next: () => void) {
-    const { url } = req;
-    if (url.indexOf(this.ROUTE_PREFIX) === 1) {
+    const { url, baseUrl } = req;
+    if (baseUrl.indexOf(this.ROUTE_PREFIX) === 1) {
       // it starts with /api --> continue with execution
       next();
     } else if (allowedExt.filter(ext => url.indexOf(ext) > 0).length > 0) {

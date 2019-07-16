@@ -8,6 +8,7 @@ import * as dotenv from 'dotenv';
 import * as Joi from 'joi';
 import * as fs from 'fs';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import * as path from 'path';
 
 export interface EnvConfig {
   [key: string]: string;
@@ -105,6 +106,23 @@ export class ConfigService implements TypeOrmOptionsFactory {
   }
 
   get imagesPath(): string {
-    return String(this.envConfig.IMAGES_PATH);
+    // return String(this.envConfig.IMAGES_PATH);
+    return path.join(this.filesAssetsPath, 'images');
+  }
+
+  get filesPath(): string {
+    return path.join('files');
+  }
+
+  get filesConfigPath(): string {
+    return path.join(this.filesPath, 'config');
+  }
+
+  get filesAssetsPath(): string {
+    return path.join(this.filesPath, 'assets');
+  }
+
+  get filesTemplatesPath(): string {
+    return path.join(this.filesPath, 'templates');
   }
 }

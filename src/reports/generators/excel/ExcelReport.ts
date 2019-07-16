@@ -14,7 +14,8 @@ export class ExcelReport extends Report {
   }
 
   getTemplatePathFile(): string {
-    return `${this.tmplPath}/${this.tmplFile}`;
+    // return `${this.tmplPath}/${this.tmplFile}`;
+    return `${this.config.filesTemplatesPath}/${this.tmplFile}`;
   }
 
 }

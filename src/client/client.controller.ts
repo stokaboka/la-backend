@@ -1,18 +1,17 @@
 import { Controller, Get, Res } from '@nestjs/common';
-// import { ClientService } from './client.service';
 import { ConfigService } from '../config/config.service';
+import { Response } from 'express';
+import { ClientService } from './client.service';
 
 @Controller('client')
 export class ClientController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly clientService: ClientService,
+  ) {}
 
   @Get('config')
-  config(@Res() res): Promise<any> {
-    const config = this.configService.clientConfig;
-    if (config) {
-      return res.sendfile(config, { root: 'public' });
-    } else {
-      return Promise.resolve('');
-    }
+  config(@Res() res: Response): Promise<any> {
+    return this.clientService.config(res);
   }
 }

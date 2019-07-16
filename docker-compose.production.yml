@@ -19,7 +19,7 @@ services:
     image: laweb
     restart: "no"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - WEB_CONCURRENCY=2
     ports:
       - "4444:4444"
