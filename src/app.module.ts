@@ -27,6 +27,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
 import { FrontendMiddleware } from './frontend.middleware';
+import { ConfigService } from './config/config.service';
 
 /*
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
@@ -40,7 +41,11 @@ import { FrontendMiddleware } from './frontend.middleware';
       signOptions: { expiresIn: '24h' },
     }),
 
-    TypeOrmModule.forRoot(),
+    // TypeOrmModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useExisting: ConfigService,
+    }),
     AuthModule,
     UsersModule,
     TokensModule,

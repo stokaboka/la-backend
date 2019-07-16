@@ -7,13 +7,14 @@ import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as Joi from 'joi';
 import * as fs from 'fs';
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 export interface EnvConfig {
   [key: string]: string;
 }
 
 @Injectable()
-export class ConfigService {
+export class ConfigService implements TypeOrmOptionsFactory {
   private readonly envConfig: EnvConfig;
 
   constructor(filePath: string) {
@@ -38,6 +39,13 @@ export class ConfigService {
       TEMPLATE_PATH: Joi.string().default(''),
       TEMPLATE_RESULT_EXCEL_FILE: Joi.string().default(''),
       IMAGES_PATH: Joi.string().default(''),
+
+      DB_HOST: Joi.string().default('localhost'),
+      DB_PORT: Joi.number().default(3306),
+      DB_USER: Joi.string().default('root'),
+      DB_PASS: Joi.string().default('123456789'),
+      DB_NAME: Joi.string().default('svsla'),
+
       // API_AUTH_ENABLED: Joi.boolean().required(),
     });
 
@@ -49,6 +57,23 @@ export class ConfigService {
       throw new Error(`Config validation error: ${error.message}`);
     }
     return validatedEnvConfig;
+  }
+
+  createTypeOrmOptions(): TypeOrmModuleOptions {
+    const out: any =  {
+      type: 'mysql',
+      host: String(this.envConfig.DB_HOST),
+      port: Number(this.envConfig.DB_PORT),
+      username: String(this.envConfig.DB_USER),
+      password: String(this.envConfig.DB_PASS),
+      database: String(this.envConfig.DB_NAME),
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    };
+    // tslint:disable-next-line:no-console
+    console.log(out);
+    return out;
   }
 
   get apiVersion(): number {
