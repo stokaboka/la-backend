@@ -20,6 +20,8 @@ async function bootstrap() {
     AppModule,
   );
 
+  app.setGlobalPrefix('v1');
+
   // const app = await NestFactory.create<NestFastifyApplication>(
   //   AppModule,
   //   new FastifyAdapter(),

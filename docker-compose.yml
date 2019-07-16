@@ -19,11 +19,9 @@ services:
     image: laweb
     restart: "no"
     environment:
-      - NODE_ENV=production
-      - SERVER_PORT=4444
+      - NODE_ENV=development
       - WEB_CONCURRENCY=2
-      - DEBUG=express:*
     ports:
-      - "80:4444"
+      - "4444:4444"
     depends_on:
       - ladb
