@@ -37,10 +37,7 @@ export class ConfigService implements TypeOrmOptionsFactory {
       SERVER_HOST: Joi.string().default('0.0.0.0'),
       PUBLIC_PATH: Joi.string().default(''),
       CLIENT_CONFIG: Joi.string().default(''),
-      TEMPLATE_PATH: Joi.string().default(''),
       TEMPLATE_RESULT_EXCEL_FILE: Joi.string().default(''),
-      IMAGES_PATH: Joi.string().default(''),
-
       DB_HOST: Joi.string().default('localhost'),
       DB_PORT: Joi.number().default(3306),
       DB_USER: Joi.string().default('root'),
@@ -69,7 +66,6 @@ export class ConfigService implements TypeOrmOptionsFactory {
       password: String(this.envConfig.DB_PASS),
       database: String(this.envConfig.DB_NAME),
       entities: ['dist/**/*.entity{.ts,.js}'],
-      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     };
     // tslint:disable-next-line:no-console
@@ -90,7 +86,6 @@ export class ConfigService implements TypeOrmOptionsFactory {
   }
 
   get publicPath(): string {
-    // return String(this.envConfig.PUBLIC_PATH);
     return path.join('public');
   }
 
@@ -98,16 +93,11 @@ export class ConfigService implements TypeOrmOptionsFactory {
     return String(this.envConfig.CLIENT_CONFIG);
   }
 
-  get templatePath(): string {
-    return String(this.envConfig.TEMPLATE_PATH);
-  }
-
   get templateResultExcelFile(): string {
     return String(this.envConfig.TEMPLATE_RESULT_EXCEL_FILE);
   }
 
   get imagesPath(): string {
-    // return String(this.envConfig.IMAGES_PATH);
     return path.join(this.filesAssetsPath, 'images');
   }
 
