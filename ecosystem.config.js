@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Igor Khorev http://orangem.me igorhorev@gmail.com
+ * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
 module.exports = {
@@ -12,6 +12,6 @@ module.exports = {
         env_production: {
             NODE_ENV: "production",
         },
-	cwd: "/opt/webapps/svs/la/server"
+	cwd: "/opt/webapps/svs/la"
     }]
 }

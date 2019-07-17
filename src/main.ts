@@ -32,7 +32,10 @@ async function bootstrap() {
   //   prefix: '/public/',
   // });
 
-  app.useStaticAssets(app.get('ConfigService').publicPath);
+  const publicPath = app.get('ConfigService').publicPath;
+  // tslint:disable-next-line:no-console
+  console.log('publicPath', publicPath);
+  app.useStaticAssets(publicPath);
 
   app.enableCors({
     origin: '*',
