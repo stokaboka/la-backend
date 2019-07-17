@@ -50,6 +50,7 @@ export class OrderDetails {
   @Column({
     name: 'cost',
     type: 'float',
+    nullable: true,
   })
   public cost: number;
 
