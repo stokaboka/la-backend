@@ -12,8 +12,8 @@ export class PdfDocumentDefinitionOrder extends PdfDocumentDefinition {
     { label: 'Курс', field: 'course', type: 'S',  width: 'auto'},
     { label: 'Цель', field: 'target', type: 'S',  width: '*'},
     { label: 'Часов', field: 'hours', type: 'N', width: 30, calculate: 'sum'},
-    { label: 'Цена', field: 'price', type: 'N', width: 60},
-    { label: 'Стоимость', field: 'cost', type: 'N', width: 80, calculate: 'sum'},
+    { label: 'Стоимость', field: 'price', type: 'N', width: 60, calculate: 'sum'},
+    // { label: 'Стоимость', field: 'cost', type: 'N', width: 80, calculate: 'sum'},
     { label: 'Время проведения', field: 'timing', type: 'S',  width: '*'},
     { label: 'Комментарий', field: 'rem', type: 'S',  width: '*'},
   ];
