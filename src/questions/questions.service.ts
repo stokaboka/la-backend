@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Questions } from './questions.entity';
 import { QuestionDto } from './dto/question.dto';
+import { QueryParams } from '../utils/query.params';
 
 @Injectable()
 export class QuestionsService {
@@ -29,9 +30,17 @@ export class QuestionsService {
     };
   }
 
-  async findByParams(where: any): Promise<Questions[]> {
-    const order: any = { part: 'ASC', phase: 'ASC', category: 'ASC' };
-    return this.repository.find({ where, order });
+  async findByParams(params: any, query: any = null): Promise<Questions[]> {
+    // const order: any = { part: 'ASC', phase: 'ASC', category: 'ASC' };
+    // const where = params;
+    const findParams: any = query != null
+      ? QueryParams.prepare(query, ['question', 'answer'], params)
+      : {
+        order: { part: 'ASC', phase: 'ASC', category: 'ASC' },
+        where: params,
+      };
+
+    return this.repository.find(findParams);
   }
 
   async countByParams(where: any): Promise<number> {

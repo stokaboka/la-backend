@@ -2,11 +2,12 @@
  * Copyright (c) 2018.  Igor Khorev, Orangem.me, igorhorev@gmail.com
  */
 
-import { Controller, Get, Put, Post, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Put, Post, Delete, Body, Param, UseGuards, Query } from '@nestjs/common';
 import { Questions } from './questions.entity';
 import { QuestionsService } from './questions.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { QuestionDto } from './dto/question.dto';
+import { QueryParams } from '../utils/query.params';
 
 @Controller('questions')
 export class QuestionsController {
@@ -14,13 +15,13 @@ export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
   @Get('/test/:test/part/:part/phase/:phase/category/:category')
-  async findByTPPC(@Param() params): Promise<Questions[]> {
-    return this.questionsService.findByParams(params);
+  async findByTPPC(@Param() params, @Query() query): Promise<Questions[]> {
+    return this.questionsService.findByParams(params, query);
   }
 
   @Get('/test/:test/part/:part/phase/:phase')
-  async findByTPP(@Param() params): Promise<Questions[]> {
-    return this.questionsService.findByParams(params);
+  async findByTPP(@Param() params, @Query() query): Promise<Questions[]> {
+    return this.questionsService.findByParams(params, query);
   }
 
   @Get('count/test/:test/part/:part/phase/:phase')
