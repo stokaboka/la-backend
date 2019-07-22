@@ -5,8 +5,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Question } from './interfaces/question.interface';
 import { Questions } from './questions.entity';
+import { QuestionDto } from './dto/question.dto';
 
 @Injectable()
 export class QuestionsService {
@@ -36,5 +36,22 @@ export class QuestionsService {
 
   async countByParams(where: any): Promise<number> {
     return this.repository.count({ where });
+  }
+
+  async save(question: QuestionDto): Promise<any> {
+    try {
+      return await this.repository.save(question);
+    } catch (error) {
+      return { error, question };
+    }
+  }
+
+  async delete(question: QuestionDto): Promise<any> {
+    const { id } = question;
+    try {
+      return await this.repository.delete({id});
+    } catch (error) {
+      return { error, question };
+    }
   }
 }

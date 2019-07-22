@@ -16,6 +16,6 @@ export class AppService {
     this.host = config.host;
   }
   getHello(): string {
-    return 'Hello World!';
+    return 'Hello World! I`m am Svoboda Lingvo Language Assessment©';
   }
 }
