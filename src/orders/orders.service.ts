@@ -27,7 +27,6 @@ export class OrdersService {
     const fields: string[] =
       'dt, currentLevelCEFR, currentLevelSVS, targetLevelCEFR, targetLevelSVS, student, manager, trainer'.split(', ');
     const queryParams = QueryParams.prepare(query, fields, params);
-
     const [result, total] = await this.repository.findAndCount(queryParams);
 
     return {

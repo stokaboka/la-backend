@@ -6,23 +6,25 @@ import { Like } from 'typeorm';
 
 export class QueryParams {
   static prepare(
-    params: any,
-    whereProps: any[] = [],
-    paramsWhere: any = {},
+    query: any,
+    filterFields: any[] = [],
+    params: any = {},
   ): any {
-    const page = params === null ? 0 : params.page || 0;
-    const limit = params === null ? 0 : params.limit || 0;
-    const sortBy = params === null ? '' : params.sortBy || '';
-    const descending = params === null ? 'false' : params.descending || 'false';
-    const filter = params === null ? '' : params.filter || '';
+    const page = query === null ? 0 : query.page || 0;
+    const limit = query === null ? 0 : query.limit || 0;
+    const sortBy = query === null ? '' : query.sortBy || '';
+    const descending = query === null ? 'false' : query.descending || 'false';
+    const filter = query === null ? '' : query.filter || '';
 
-    let where: any = { ...paramsWhere };
+    let where: any = {};
     if (filter) {
-      where = whereProps.map(e => {
-        const out = {};
+      where = filterFields.map(e => {
+        const out = {...params};
         out[e] = Like(`%${filter}%`);
         return out;
       });
+    } else {
+      where = { ...params };
     }
 
     const order: any = {};
