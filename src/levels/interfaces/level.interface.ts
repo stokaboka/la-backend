@@ -9,7 +9,7 @@ export interface Level {
   readonly dt: Date;
   readonly test: number;
   readonly level: number;
-  readonly levelCEF: string;
+  readonly levelCEFR: string;
   readonly levelSVS: string;
   readonly manager: string;
   readonly trainer: string;

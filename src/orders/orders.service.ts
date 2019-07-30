@@ -25,7 +25,7 @@ export class OrdersService {
 
   async find(params: any): Promise<any> {
     const fields: string =
-      'dt, currentLevelCEF, currentLevelSVS, targetLevelCEF, targetLevelSVS, student, manager, trainer';
+      'dt, currentLevelCEFR, currentLevelSVS, targetLevelCEFR, targetLevelSVS, student, manager, trainer';
     const queryParams = QueryParams.prepare(params, fields.split(', '));
 
     const [result, total] = await this.repository.findAndCount(queryParams);

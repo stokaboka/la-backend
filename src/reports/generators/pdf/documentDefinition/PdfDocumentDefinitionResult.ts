@@ -29,7 +29,7 @@ export class PdfDocumentDefinitionResult extends PdfDocumentDefinition {
       title: 'РЕЗУЛЬТАТЫ Language Assessment',
       logoImage: this.imageToDataUri(`${this.config.imagesPath}/${this.logo}`),
       logoImageSize: [132, 99],
-      finalResult: `${data.results.finalLevelCEF_value} - ${data.results.finalLevelSVS_value}`,
+      finalResult: `${data.results.finalLevelCEFR_value} - ${data.results.finalLevelSVS_value}`,
       date: this.dateToString(data.date),
     };
 
@@ -80,7 +80,7 @@ export class PdfDocumentDefinitionResult extends PdfDocumentDefinition {
           widths: ['auto', 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
           body: [
             [
-              { text: 'Общеевропейская Система Уровней Владения Иностранными Языками (CEF)', style: 'bg-orange-1' },
+              { text: 'Общеевропейская Система Уровней Владения Иностранными Языками (CEFR)', style: 'bg-orange-1' },
               { text: 'A1', colSpan: 3, alignment: 'center', style: 'bg-orange-1' },
               '',
               '',

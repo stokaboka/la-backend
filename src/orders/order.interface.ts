@@ -6,9 +6,9 @@ export interface OrderInterface {
   readonly id: number;
   readonly idUser: number;
   readonly dt: Date;
-  readonly currentLevelCEF: string;
+  readonly currentLevelCEFR: string;
   readonly currentLevelSVS: string;
-  readonly targetLevelCEF: string;
+  readonly targetLevelCEFR: string;
   readonly targetLevelSVS: string;
   readonly student: string;
   readonly manager: string;

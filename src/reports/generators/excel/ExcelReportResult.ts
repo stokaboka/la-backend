@@ -42,9 +42,9 @@ export class ExcelResultReport extends ExcelReport {
       ws.getCell('B3').value = `${data.manager}`;
       ws.getCell('B4').value = `${data.trainer}`;
       ws.getCell('B5').value = DateString.dateToString(data.date, 'DD.MM.YYYY');
-      ws.getCell('B6').value = `${data.results.finalLevelCEF_value} - ${data.results.finalLevelSVS_value}`;
+      ws.getCell('B6').value = `${data.results.finalLevelCEFR_value} - ${data.results.finalLevelSVS_value}`;
 
-      // this.fillCellByResultIndex(ws, data.results.finalLevelCEF, 7);
+      // this.fillCellByResultIndex(ws, data.results.finalLevelCEFR, 7);
       // this.fillCellByResultIndex(ws, data.results.finalLevelSVS, 8, 2);
       // this.fillCellByResultIndex(ws, data.results.finalLevelSVSDetail, 9);
 

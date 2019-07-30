@@ -23,11 +23,11 @@ export class Orders {
   public dt: Date;
 
   @Column({
-    name: 'currentLevelCEF',
+    name: 'currentLevelCEFR',
     type: 'varchar',
     length: 255,
   })
-  public currentLevelCEF: string;
+  public currentLevelCEFR: string;
 
   @Column({
     name: 'currentLevelSVS',
@@ -37,11 +37,11 @@ export class Orders {
   public currentLevelSVS: string;
 
   @Column({
-    name: 'targetLevelCEF',
+    name: 'targetLevelCEFR',
     type: 'varchar',
     length: 255,
   })
-  public targetLevelCEF: string;
+  public targetLevelCEFR: string;
 
   @Column({
     name: 'targetLevelSVS',

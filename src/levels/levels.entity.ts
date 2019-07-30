@@ -45,11 +45,11 @@ export class Levels {
   public level: number;
 
   @Column({
-    name: 'levelCEF',
+    name: 'levelCEFR',
     type: 'varchar',
     length: 255,
   })
-  public levelCEF: string;
+  public levelCEFR: string;
 
   @Column({
     name: 'levelSVS',

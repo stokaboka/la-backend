@@ -95,9 +95,9 @@ export class PdfDocumentDefinitionOrder extends PdfDocumentDefinition {
         table: {
           widths: ['auto', 'auto', 'auto'],
           body: [
-            ['', 'Уровень CEF', 'Уровень "Cвобода слова"'],
-            ['Тестирование', `${order.currentLevelCEF}`, `${order.currentLevelSVS}`],
-            ['Цель', `${order.targetLevelCEF}`, `${order.targetLevelSVS}`],
+            ['', 'Уровень CEFR', 'Уровень "Cвобода слова"'],
+            ['Тестирование', `${order.currentLevelCEFR}`, `${order.currentLevelSVS}`],
+            ['Цель', `${order.targetLevelCEFR}`, `${order.targetLevelSVS}`],
           ],
         },
       },
