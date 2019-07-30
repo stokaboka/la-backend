@@ -14,8 +14,14 @@ export class OrdersController {
 
   @Get()
   @UseGuards(new JwtAuthGuard())
-  find(@Query() params): Promise<any> {
-    return this.service.find(params);
+  find(@Query() query): Promise<any> {
+    return this.service.find(query);
+  }
+
+  @Get('user/:idUser')
+  @UseGuards(new JwtAuthGuard())
+  findByUser(@Query() query, @Param() params): Promise<any> {
+    return this.service.find(query, params);
   }
 
   @Put()
