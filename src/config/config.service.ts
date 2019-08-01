@@ -69,7 +69,7 @@ export class ConfigService implements TypeOrmOptionsFactory {
       synchronize: true,
     };
     // tslint:disable-next-line:no-console
-    console.log(out);
+    // console.log(out);
     return out;
   }
 
